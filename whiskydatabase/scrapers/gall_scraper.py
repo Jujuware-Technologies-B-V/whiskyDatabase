@@ -1,27 +1,27 @@
+# scrapers/gall_scraper.py
+
 from scrapers.base_scraper import BaseScraper
 from bs4 import BeautifulSoup, Tag
 from typing import List, Dict, Optional, Any
 import time
 import random
-import csv
-import gzip
-import os
-from utils.helpers import get_date_string
+import asyncio
 import re
 
 
 class GallScraper(BaseScraper):
     def __init__(self, site_config: Dict[str, Any]):
         super().__init__(site_config)
+        self.semaphore = asyncio.Semaphore(5)  # Limit concurrent tasks
 
-    def scrape(self) -> None:
+    async def scrape(self) -> None:
         page_num: int = 0
         total_products: int = 0
 
         while True:
             url: str = self.site_config['pagination_url'].format(page_num * 12)
             self.logger.info(f"Scraping page {page_num + 1}: {url}")
-            html_content: Optional[str] = self.make_request(url)
+            html_content: Optional[str] = await self.make_request(url)
 
             if html_content is None:
                 self.logger.warning(f"No content retrieved for page {
@@ -37,7 +37,7 @@ class GallScraper(BaseScraper):
                                  page_num + 1}. Ending scrape.")
                 break
 
-            products: List[Dict[str, str]] = self.parse_products(
+            products: List[Dict[str, Any]] = self.parse_products(
                 product_list[0])
 
             if not products:
@@ -45,19 +45,25 @@ class GallScraper(BaseScraper):
                                  page_num + 1}. Ending scrape.")
                 break
 
-            self.save_products(products)
-            total_products += len(products)
+            # Create tasks for fetching product details concurrently
+            detail_tasks = [self.fetch_and_parse_product(
+                product) for product in products]
+            detailed_products = await asyncio.gather(*detail_tasks)
+
+            # Save products
+            self.save_products(detailed_products)
+            total_products += len(detailed_products)
             self.logger.info(
-                f"Scraped {len(products)} products from page {page_num + 1}.")
+                f"Scraped {len(detailed_products)} products from page {page_num + 1}.")
 
             page_num += 1
-            time.sleep(self.delay + random.uniform(1, 3))
+            await asyncio.sleep(self.delay + random.uniform(1, 3))
 
         self.logger.info(f"Total products scraped from {
                          self.site_config['name']}: {total_products}")
 
-    def parse_products(self, product_list: Tag) -> List[Dict[str, str]]:
-        products: List[Dict[str, str]] = []
+    def parse_products(self, product_list: Tag) -> List[Dict[str, Any]]:
+        products: List[Dict[str, Any]] = []
         product_items: List[Tag] = product_list.select(
             self.site_config['product_item_selector'])
 
@@ -76,16 +82,11 @@ class GallScraper(BaseScraper):
                         price_elem.get_text(strip=True))
                     link: str = self.base_url + link_elem['href']
 
-                    details: Optional[Dict[str, str]
-                                      ] = self.fetch_product_details(link)
-
-                    product_data: Dict[str, str] = {
+                    product_data: Dict[str, Any] = {
                         'name': name,
                         'price': price,
                         'link': link,
-                        'volume': details.get('volume', '') if details else '',
-                        'abv': details.get('abv', '') if details else '',
-                        'scraped_at': time.strftime('%Y-%m-%d %H:%M:%S')
+                        # 'volume' and 'abv' will be filled later
                     }
 
                     products.append(product_data)
@@ -94,6 +95,18 @@ class GallScraper(BaseScraper):
                 continue
 
         return products
+
+    async def fetch_and_parse_product(self, product: Dict[str, Any]) -> Dict[str, Any]:
+        async with self.semaphore:
+            details = await self.fetch_product_details(product['link'])
+            if details:
+                product['volume'] = details.get('volume', '')
+                product['abv'] = details.get('abv', '')
+            else:
+                product['volume'] = ''
+                product['abv'] = ''
+            product['scraped_at'] = time.strftime('%Y-%m-%d %H:%M:%S')
+            return product
 
     def parse_price(self, price_string: str) -> str:
         # Remove any newline characters and extra spaces
