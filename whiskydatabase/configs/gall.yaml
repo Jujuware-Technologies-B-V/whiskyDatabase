@@ -1,0 +1,13 @@
+name: 'Gall & Gall'
+base_url: 'https://www.gall.nl'
+pagination_url: 'https://www.gall.nl/whisky/?start={}&sz=12'
+product_list_selector: '.product-grid__wrapper'
+product_item_selector: '.product-grid__product'
+name_selector: '.ptile_link strong[itemprop="name"]'
+price_selector: '.price-value'
+link_selector: '.ptile_link'
+detail_info_selector: '.pdp-info_desc'
+headers:
+  User-Agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36'
+delay: 2
+retries: 3

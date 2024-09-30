@@ -1,0 +1,15 @@
+# configs/whisky_exchange.yaml
+
+name: 'Whisky Exchange'
+base_url: 'https://www.thewhiskyexchange.com'
+pagination_url: 'https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg={}'
+product_list_selector: '.product-grid__list'
+product_item_selector: 'li.product-grid__item'
+name_selector: 'p.product-card__name'
+price_selector: 'p.product-card__price'
+link_selector: 'a.product-card'
+meta_selector: 'p.product-card__meta'
+headers:
+  User-Agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36'
+delay: 2
+retries: 3

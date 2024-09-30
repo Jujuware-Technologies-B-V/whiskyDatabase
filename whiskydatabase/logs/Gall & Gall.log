@@ -1,0 +1,336 @@
+2024-09-30 13:01:54,405 - Gall & Gall - INFO - Created new data file: data/gall_20240930.csv.gz
+2024-09-30 13:01:54,405 - Gall & Gall - INFO - Scraping page 1: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:01:54,405 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=0&sz=12 (Attempt 1/3)
+2024-09-30 13:01:59,923 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: Aberlour 12 Years Double Cask Matured
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: Muirhead's Scotch Whisky
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: The Famous Grouse
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: Johnnie Walker Red Label
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: Jameson
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: Grant's
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Saved product: Glenmorangie the Original 12 Years
+2024-09-30 13:02:04,746 - Gall & Gall - INFO - Scraped 9 products from page 1.
+2024-09-30 13:02:09,323 - Gall & Gall - INFO - Scraping page 2: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:02:09,324 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=12&sz=12 (Attempt 1/3)
+2024-09-30 13:02:15,728 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Four Roses
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Ballantine's
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Seagram's V.O.
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Talisker Skye
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Bowmore 12 Years Single Malt Whisky
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Connemara Irish
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: The Glenlivet Caribbean Reserve
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Ballantine's
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Tomintoul 10 Years
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Saved product: Finlaggan Cask Strength
+2024-09-30 13:02:20,899 - Gall & Gall - INFO - Scraped 10 products from page 2.
+2024-09-30 13:02:25,613 - Gall & Gall - INFO - Scraping page 3: https://www.gall.nl/whisky/?start=24&sz=12
+2024-09-30 13:02:25,614 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=24&sz=12 (Attempt 1/3)
+2024-09-30 13:02:30,530 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=24&sz=12
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Tenjaku Pure Malt 70cl
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Cragganmore 12 Years
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Dalwhinnie Winter's Gold
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Tamnavulin Sherry Cask
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: The Famous Grouse
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Tullamore Dew
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Glenmorangie 14 Years Port Cask Finish
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Jura Winter Cask
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Jura Rum Cask
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Muirhead's Blended Scotch Whisky
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Saved product: Aerstone 10 Years Land Cask
+2024-09-30 13:02:35,139 - Gall & Gall - INFO - Scraped 11 products from page 3.
+2024-09-30 13:02:39,442 - Gall & Gall - INFO - Scraping page 4: https://www.gall.nl/whisky/?start=36&sz=12
+2024-09-30 13:02:39,442 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=36&sz=12 (Attempt 1/3)
+2024-09-30 13:02:44,425 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=36&sz=12
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Jura Red Wine Cask Finish
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Label 5
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Old Particular Arran 9 Years
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Grant's
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Jura Bourbon Cask
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Benriach Original Ten
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: The Famous Dad
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Famous Grouse Sherry Cask Finish
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: The Famous Grouse Smoky Black
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Finlaggan Eilean Mor
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: The Glenlivet Founder's Reserve
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Saved product: Old Particular Jura 12 Years
+2024-09-30 13:02:48,829 - Gall & Gall - INFO - Scraped 12 products from page 4.
+2024-09-30 13:02:52,092 - Gall & Gall - INFO - Scraping page 5: https://www.gall.nl/whisky/?start=48&sz=12
+2024-09-30 13:02:52,093 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=48&sz=12 (Attempt 1/3)
+2024-09-30 13:34:00,556 - Gall & Gall - INFO - Scraping page 1: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:34:00,556 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=0&sz=12 (Attempt 1/3)
+2024-09-30 13:34:05,707 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:34:10,385 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html (Attempt 1/3)
+2024-09-30 13:34:14,841 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html
+2024-09-30 13:35:14,869 - Gall & Gall - ERROR - Timeout when fetching https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html: Page.wait_for_selector: Timeout 60000ms exceeded.
+Call log:
+waiting for locator(".product-grid__wrapper") to be visible
+
+2024-09-30 13:35:14,869 - Gall & Gall - INFO - Retrying in 4 seconds...
+2024-09-30 13:35:18,875 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html (Attempt 2/3)
+2024-09-30 13:35:22,767 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html
+2024-09-30 13:38:36,984 - Gall & Gall - INFO - Created new data file: data/gall_20240930.csv.gz
+2024-09-30 13:38:36,984 - Gall & Gall - INFO - Scraping page 1: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:38:36,984 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=0&sz=12 (Attempt 1/3)
+2024-09-30 13:38:41,158 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:38:45,671 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html (Attempt 1/3)
+2024-09-30 13:38:49,359 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html
+2024-09-30 13:38:52,307 - Gall & Gall - ERROR - Error parsing product: 'detail_country_selector'
+2024-09-30 13:38:52,307 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-150cl-699152.html (Attempt 1/3)
+2024-09-30 13:38:56,894 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-150cl-699152.html
+2024-09-30 13:38:59,386 - Gall & Gall - ERROR - Error parsing product: 'detail_country_selector'
+2024-09-30 13:38:59,386 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html (Attempt 1/3)
+2024-09-30 13:39:43,526 - Gall & Gall - INFO - Scraping page 1: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:39:43,526 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=0&sz=12 (Attempt 1/3)
+2024-09-30 13:39:47,511 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:39:52,125 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html (Attempt 1/3)
+2024-09-30 13:39:55,725 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html
+2024-09-30 13:39:58,034 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-150cl-699152.html (Attempt 1/3)
+2024-09-30 13:40:01,652 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-150cl-699152.html
+2024-09-30 13:40:04,567 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html (Attempt 1/3)
+2024-09-30 13:40:08,990 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html
+2024-09-30 13:40:11,648 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/the-famous-grouse-100cl-693847.html (Attempt 1/3)
+2024-09-30 13:40:15,347 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/the-famous-grouse-100cl-693847.html
+2024-09-30 13:40:17,530 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html (Attempt 1/3)
+2024-09-30 13:40:21,168 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html
+2024-09-30 13:40:23,557 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-100cl-699136.html (Attempt 1/3)
+2024-09-30 13:40:27,325 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-100cl-699136.html
+2024-09-30 13:40:29,537 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/jameson-100cl-719021.html (Attempt 1/3)
+2024-09-30 13:40:33,143 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/jameson-100cl-719021.html
+2024-09-30 13:40:36,096 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/grants-100cl-699357.html (Attempt 1/3)
+2024-09-30 13:40:39,876 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/grants-100cl-699357.html
+2024-09-30 13:40:42,200 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html (Attempt 1/3)
+2024-09-30 13:40:45,693 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: Aberlour 12 Years Double Cask Matured
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: Muirhead's Scotch Whisky
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: The Famous Grouse
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: Johnnie Walker Red Label
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: Jameson
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: Grant's
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Saved product: Glenmorangie the Original 12 Years
+2024-09-30 13:40:48,777 - Gall & Gall - INFO - Scraped 9 products from page 1.
+2024-09-30 13:40:52,790 - Gall & Gall - INFO - Scraping page 2: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:40:52,790 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=12&sz=12 (Attempt 1/3)
+2024-09-30 13:40:56,914 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:41:01,715 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/four-roses-100cl-729019.html (Attempt 1/3)
+2024-09-30 13:41:06,319 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/four-roses-100cl-729019.html
+2024-09-30 13:41:09,010 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/ballantines-150cl-699934.html (Attempt 1/3)
+2024-09-30 13:41:13,629 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/ballantines-150cl-699934.html
+2024-09-30 13:44:53,519 - Gall & Gall - INFO - Scraping page 1: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:44:53,519 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=0&sz=12 (Attempt 1/3)
+2024-09-30 13:44:57,779 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:45:02,217 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html (Attempt 1/3)
+2024-09-30 13:45:06,062 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html
+2024-09-30 13:45:08,834 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-150cl-699152.html (Attempt 1/3)
+2024-09-30 13:45:12,613 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-150cl-699152.html
+2024-09-30 13:45:15,025 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html (Attempt 1/3)
+2024-09-30 13:45:18,640 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html
+2024-09-30 13:45:21,293 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/the-famous-grouse-100cl-693847.html (Attempt 1/3)
+2024-09-30 13:45:25,204 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/the-famous-grouse-100cl-693847.html
+2024-09-30 13:45:27,620 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html (Attempt 1/3)
+2024-09-30 13:45:31,564 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html
+2024-09-30 13:45:33,897 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-100cl-699136.html (Attempt 1/3)
+2024-09-30 13:45:37,606 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-100cl-699136.html
+2024-09-30 13:45:39,876 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/jameson-100cl-719021.html (Attempt 1/3)
+2024-09-30 13:45:43,504 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/jameson-100cl-719021.html
+2024-09-30 13:45:46,028 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/grants-100cl-699357.html (Attempt 1/3)
+2024-09-30 13:45:49,505 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/grants-100cl-699357.html
+2024-09-30 13:45:51,667 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html (Attempt 1/3)
+2024-09-30 13:45:55,323 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: Aberlour 12 Years Double Cask Matured
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: Muirhead's Scotch Whisky
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: The Famous Grouse
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: Johnnie Walker Red Label
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: Jameson
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: Grant's
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Saved product: Glenmorangie the Original 12 Years
+2024-09-30 13:45:58,191 - Gall & Gall - INFO - Scraped 9 products from page 1.
+2024-09-30 13:46:02,262 - Gall & Gall - INFO - Scraping page 2: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:46:02,262 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=12&sz=12 (Attempt 1/3)
+2024-09-30 13:46:06,495 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:46:11,610 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/four-roses-100cl-729019.html (Attempt 1/3)
+2024-09-30 13:46:15,501 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/four-roses-100cl-729019.html
+2024-09-30 13:46:18,342 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/ballantines-150cl-699934.html (Attempt 1/3)
+2024-09-30 13:46:22,132 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/ballantines-150cl-699934.html
+2024-09-30 13:46:25,273 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/seagrams-v.o.-100cl-729515.html (Attempt 1/3)
+2024-09-30 13:49:12,887 - Gall & Gall - INFO - Scraping page 1: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:49:12,887 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=0&sz=12 (Attempt 1/3)
+2024-09-30 13:49:18,772 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:49:23,926 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html (Attempt 1/3)
+2024-09-30 13:49:28,526 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html
+2024-09-30 13:49:31,003 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-150cl-699152.html (Attempt 1/3)
+2024-09-30 13:49:34,961 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-150cl-699152.html
+2024-09-30 13:49:37,547 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html (Attempt 1/3)
+2024-09-30 13:49:41,102 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html
+2024-09-30 13:49:43,385 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/the-famous-grouse-100cl-693847.html (Attempt 1/3)
+2024-09-30 13:49:47,289 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/the-famous-grouse-100cl-693847.html
+2024-09-30 13:49:49,483 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html (Attempt 1/3)
+2024-09-30 13:49:53,227 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html
+2024-09-30 13:49:55,970 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-100cl-699136.html (Attempt 1/3)
+2024-09-30 13:50:00,034 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-100cl-699136.html
+2024-09-30 13:50:02,847 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/jameson-100cl-719021.html (Attempt 1/3)
+2024-09-30 13:50:07,490 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/jameson-100cl-719021.html
+2024-09-30 13:50:10,271 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/grants-100cl-699357.html (Attempt 1/3)
+2024-09-30 13:50:14,700 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/grants-100cl-699357.html
+2024-09-30 13:50:17,612 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html (Attempt 1/3)
+2024-09-30 13:50:21,347 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: Aberlour 12 Years Double Cask Matured
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: Muirhead's Scotch Whisky
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: The Famous Grouse
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: Johnnie Walker Red Label
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: Jameson
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: Grant's
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Saved product: Glenmorangie the Original 12 Years
+2024-09-30 13:50:23,650 - Gall & Gall - INFO - Scraped 9 products from page 1.
+2024-09-30 13:50:27,739 - Gall & Gall - INFO - Scraping page 2: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:50:27,739 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=12&sz=12 (Attempt 1/3)
+2024-09-30 13:50:32,082 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:50:36,339 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/four-roses-100cl-729019.html (Attempt 1/3)
+2024-09-30 13:50:40,222 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/four-roses-100cl-729019.html
+2024-09-30 13:50:42,902 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/ballantines-150cl-699934.html (Attempt 1/3)
+2024-09-30 13:50:47,471 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/ballantines-150cl-699934.html
+2024-09-30 13:50:49,861 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/seagrams-v.o.-100cl-729515.html (Attempt 1/3)
+2024-09-30 13:50:53,395 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/seagrams-v.o.-100cl-729515.html
+2024-09-30 13:50:55,594 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/talisker-skye-70cl-704776.html (Attempt 1/3)
+2024-09-30 13:50:59,207 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/talisker-skye-70cl-704776.html
+2024-09-30 13:51:02,044 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/bowmore-12-years-single-malt-whisky-70cl-708305.html (Attempt 1/3)
+2024-09-30 13:51:06,613 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/bowmore-12-years-single-malt-whisky-70cl-708305.html
+2024-09-30 13:51:09,603 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/connemara-irish-70cl-712205.html (Attempt 1/3)
+2024-09-30 13:51:13,404 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/connemara-irish-70cl-712205.html
+2024-09-30 13:51:16,015 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/the-glenlivet-caribbean-reserve-70cl-164380.html (Attempt 1/3)
+2024-09-30 13:51:19,931 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/the-glenlivet-caribbean-reserve-70cl-164380.html
+2024-09-30 13:51:22,298 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/ballantines-100cl-690899.html (Attempt 1/3)
+2024-09-30 13:51:26,434 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/ballantines-100cl-690899.html
+2024-09-30 13:51:29,290 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/tomintoul-10-years-70cl-709522.html (Attempt 1/3)
+2024-09-30 13:51:32,948 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/tomintoul-10-years-70cl-709522.html
+2024-09-30 13:51:36,037 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/finlaggan-cask-strength-70cl-710571.html (Attempt 1/3)
+2024-09-30 13:51:40,420 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/finlaggan-cask-strength-70cl-710571.html
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Four Roses
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Ballantine's
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Seagram's V.O.
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Talisker Skye
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Bowmore 12 Years Single Malt Whisky
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Connemara Irish
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: The Glenlivet Caribbean Reserve
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Ballantine's
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Tomintoul 10 Years
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Saved product: Finlaggan Cask Strength
+2024-09-30 13:51:43,261 - Gall & Gall - INFO - Scraped 10 products from page 2.
+2024-09-30 13:51:48,028 - Gall & Gall - INFO - Scraping page 3: https://www.gall.nl/whisky/?start=24&sz=12
+2024-09-30 13:51:48,028 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=24&sz=12 (Attempt 1/3)
+2024-09-30 13:51:53,082 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=24&sz=12
+2024-09-30 13:51:57,317 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/tenjaku-pure-malt-70cl-70cl-403121.html (Attempt 1/3)
+2024-09-30 13:52:01,690 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/tenjaku-pure-malt-70cl-70cl-403121.html
+2024-09-30 13:52:04,287 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/cragganmore-12-years-70cl-702226.html (Attempt 1/3)
+2024-09-30 13:52:08,747 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/cragganmore-12-years-70cl-702226.html
+2024-09-30 13:52:11,621 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/dalwhinnie-winters-gold-70cl-704598.html (Attempt 1/3)
+2024-09-30 13:52:15,202 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/dalwhinnie-winters-gold-70cl-704598.html
+2024-09-30 13:52:18,312 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/tamnavulin-sherry-cask-70cl-163473.html (Attempt 1/3)
+2024-09-30 13:52:22,022 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/tamnavulin-sherry-cask-70cl-163473.html
+2024-09-30 13:52:24,635 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/the-famous-grouse-150cl-669962.html (Attempt 1/3)
+2024-09-30 13:52:28,335 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/the-famous-grouse-150cl-669962.html
+2024-09-30 13:52:30,675 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/tullamore-dew-100cl-719420.html (Attempt 1/3)
+2024-09-30 13:52:34,555 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/tullamore-dew-100cl-719420.html
+2024-09-30 13:52:37,536 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glenmorangie-14-years-port-cask-finish-70cl-141208.html (Attempt 1/3)
+2024-09-30 13:52:41,255 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glenmorangie-14-years-port-cask-finish-70cl-141208.html
+2024-09-30 13:52:43,640 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/jura-winter-cask-70cl-412813.html (Attempt 1/3)
+2024-09-30 13:54:08,745 - Gall & Gall - INFO - Scraping page 1: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:54:08,745 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=0&sz=12 (Attempt 1/3)
+2024-09-30 13:54:12,982 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 13:54:17,786 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html (Attempt 1/3)
+2024-09-30 13:54:22,146 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html
+2024-09-30 13:54:24,741 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-150cl-699152.html (Attempt 1/3)
+2024-09-30 13:54:28,515 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-150cl-699152.html
+2024-09-30 13:54:31,046 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html (Attempt 1/3)
+2024-09-30 13:54:34,989 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html
+2024-09-30 13:54:37,990 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/the-famous-grouse-100cl-693847.html (Attempt 1/3)
+2024-09-30 13:54:41,825 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/the-famous-grouse-100cl-693847.html
+2024-09-30 13:54:43,980 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html (Attempt 1/3)
+2024-09-30 13:54:48,337 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html
+2024-09-30 13:54:51,422 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-100cl-699136.html (Attempt 1/3)
+2024-09-30 13:54:55,263 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-100cl-699136.html
+2024-09-30 13:54:57,473 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/jameson-100cl-719021.html (Attempt 1/3)
+2024-09-30 13:55:01,022 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/jameson-100cl-719021.html
+2024-09-30 13:55:03,245 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/grants-100cl-699357.html (Attempt 1/3)
+2024-09-30 13:55:06,829 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/grants-100cl-699357.html
+2024-09-30 13:55:09,139 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html (Attempt 1/3)
+2024-09-30 13:55:12,723 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: Aberlour 12 Years Double Cask Matured
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: Muirhead's Scotch Whisky
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: The Famous Grouse
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: Johnnie Walker Red Label
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: Jameson
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: Grant's
+2024-09-30 13:55:14,879 - Gall & Gall - INFO - Saved product: Glenmorangie the Original 12 Years
+2024-09-30 13:55:14,880 - Gall & Gall - INFO - Scraped 9 products from page 1.
+2024-09-30 13:55:19,322 - Gall & Gall - INFO - Scraping page 2: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:55:19,322 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=12&sz=12 (Attempt 1/3)
+2024-09-30 13:55:24,138 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 13:55:28,914 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/four-roses-100cl-729019.html (Attempt 1/3)
+2024-09-30 13:55:32,661 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/four-roses-100cl-729019.html
+2024-09-30 13:55:35,014 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/ballantines-150cl-699934.html (Attempt 1/3)
+2024-09-30 13:55:38,752 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/ballantines-150cl-699934.html
+2024-09-30 13:55:41,868 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/seagrams-v.o.-100cl-729515.html (Attempt 1/3)
+2024-09-30 13:55:45,502 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/seagrams-v.o.-100cl-729515.html
+2024-09-30 13:55:48,611 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/talisker-skye-70cl-704776.html (Attempt 1/3)
+2024-09-30 13:55:52,275 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/talisker-skye-70cl-704776.html
+2024-09-30 13:55:54,510 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/bowmore-12-years-single-malt-whisky-70cl-708305.html (Attempt 1/3)
+2024-09-30 13:55:58,388 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/bowmore-12-years-single-malt-whisky-70cl-708305.html
+2024-09-30 13:56:01,449 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/connemara-irish-70cl-712205.html (Attempt 1/3)
+2024-09-30 13:56:05,110 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/connemara-irish-70cl-712205.html
+2024-09-30 13:56:07,552 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/the-glenlivet-caribbean-reserve-70cl-164380.html (Attempt 1/3)
+2024-09-30 13:56:11,107 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/the-glenlivet-caribbean-reserve-70cl-164380.html
+2024-09-30 13:56:13,621 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/ballantines-100cl-690899.html (Attempt 1/3)
+2024-09-30 13:56:17,311 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/ballantines-100cl-690899.html
+2024-09-30 13:56:20,029 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/tomintoul-10-years-70cl-709522.html (Attempt 1/3)
+2024-09-30 13:56:23,660 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/tomintoul-10-years-70cl-709522.html
+2024-09-30 13:56:26,545 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/finlaggan-cask-strength-70cl-710571.html (Attempt 1/3)
+2024-09-30 13:56:30,201 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/finlaggan-cask-strength-70cl-710571.html
+2024-09-30 14:01:48,664 - Gall & Gall - INFO - Created new data file: data/gall_&_gall_20240930.csv.gz
+2024-09-30 14:01:48,664 - Gall & Gall - INFO - Scraping page 1: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 14:01:48,664 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=0&sz=12 (Attempt 1/3)
+2024-09-30 14:01:52,922 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=0&sz=12
+2024-09-30 14:01:57,563 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html (Attempt 1/3)
+2024-09-30 14:02:01,255 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/aberlour-12-years-double-cask-matured-70cl-705292.html
+2024-09-30 14:02:04,242 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-150cl-699152.html (Attempt 1/3)
+2024-09-30 14:02:07,927 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-150cl-699152.html
+2024-09-30 14:02:10,545 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html (Attempt 1/3)
+2024-09-30 14:02:14,934 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/muirheads-scotch-whisky-100cl-699748.html
+2024-09-30 14:02:17,388 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/the-famous-grouse-100cl-693847.html (Attempt 1/3)
+2024-09-30 14:02:21,933 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/the-famous-grouse-100cl-693847.html
+2024-09-30 14:02:24,754 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html (Attempt 1/3)
+2024-09-30 14:02:28,310 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/johnnie-walker-red-label-100cl-690082.html
+2024-09-30 14:02:31,156 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glen-talloch-100cl-699136.html (Attempt 1/3)
+2024-09-30 14:02:34,829 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glen-talloch-100cl-699136.html
+2024-09-30 14:02:37,701 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/jameson-100cl-719021.html (Attempt 1/3)
+2024-09-30 14:02:41,310 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/jameson-100cl-719021.html
+2024-09-30 14:02:43,655 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/grants-100cl-699357.html (Attempt 1/3)
+2024-09-30 14:02:47,568 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/grants-100cl-699357.html
+2024-09-30 14:02:50,169 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html (Attempt 1/3)
+2024-09-30 14:02:53,983 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/glenmorangie-the-original-12-years-70cl-452823.html
+2024-09-30 14:02:56,808 - Gall & Gall - INFO - Saved product: Aberlour 12 Years Double Cask Matured
+2024-09-30 14:02:56,808 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 14:02:56,808 - Gall & Gall - INFO - Saved product: Muirhead's Scotch Whisky
+2024-09-30 14:02:56,808 - Gall & Gall - INFO - Saved product: The Famous Grouse
+2024-09-30 14:02:56,808 - Gall & Gall - INFO - Saved product: Johnnie Walker Red Label
+2024-09-30 14:02:56,809 - Gall & Gall - INFO - Saved product: Glen Talloch
+2024-09-30 14:02:56,809 - Gall & Gall - INFO - Saved product: Jameson
+2024-09-30 14:02:56,809 - Gall & Gall - INFO - Saved product: Grant's
+2024-09-30 14:02:56,809 - Gall & Gall - INFO - Saved product: Glenmorangie the Original 12 Years
+2024-09-30 14:02:56,809 - Gall & Gall - INFO - Scraped 9 products from page 1.
+2024-09-30 14:03:01,511 - Gall & Gall - INFO - Scraping page 2: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 14:03:01,512 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/whisky/?start=12&sz=12 (Attempt 1/3)
+2024-09-30 14:03:06,465 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/whisky/?start=12&sz=12
+2024-09-30 14:03:11,256 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/four-roses-100cl-729019.html (Attempt 1/3)
+2024-09-30 14:03:14,947 - Gall & Gall - INFO - Navigated to: https://www.gall.nl/four-roses-100cl-729019.html
+2024-09-30 14:03:17,138 - Gall & Gall - INFO - Attempting to fetch URL: https://www.gall.nl/ballantines-150cl-699934.html (Attempt 1/3)
