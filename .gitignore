@@ -1,0 +1,46 @@
+# Python-related
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env/
+
+# Data files
+/data/
+*.csv
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# IDE-specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.bak
+*.swp
+*~
+
+# Project-specific
+whiskydatabase/data/*.csv
+
+# Keep the anomalies.csv file
+!whiskydatabase/anomalies.csv
