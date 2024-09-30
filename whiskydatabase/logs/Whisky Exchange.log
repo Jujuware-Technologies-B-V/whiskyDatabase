@@ -4771,3 +4771,64 @@ navigating to "https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?
 2024-09-30 16:08:30,081 - Whisky Exchange - INFO - Scraped 24 products from page 133.
 2024-09-30 16:08:34,018 - Whisky Exchange - INFO - Scraping page 134: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=134
 2024-09-30 16:08:34,019 - Whisky Exchange - INFO - Attempting to fetch URL: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=134 (Attempt 1/3)
+2024-09-30 17:17:27,005 - Whisky Exchange - INFO - Created new data file: data/whisky_exchange_20240930.csv.gz
+2024-09-30 17:17:27,572 - Whisky Exchange - INFO - Fetched exchange rate: 1 GBP = 1.2 EUR
+2024-09-30 17:17:27,572 - Whisky Exchange - INFO - Scraping page 1: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=1
+2024-09-30 17:17:27,572 - Whisky Exchange - INFO - Attempting to fetch URL: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=1 (Attempt 1/3)
+2024-09-30 17:17:31,515 - Whisky Exchange - INFO - Navigated to: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=1
+2024-09-30 17:17:37,934 - Whisky Exchange - INFO - Saved product: Lagavulin 16 Year Old
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Loch Lomond 18 Year Old
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Bunnahabhain Toiteach A Dha
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Caol Ila 12 Year Old
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Glenturret 12 Year Old2024 Release
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Arran 10 Year Old
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: A Good Old-Fashioned Christmas Whisky15 Year Old 2023 Edition
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Balvenie 12 Year Old DoubleWood
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Glenfarclas 15 Year Old
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Laphroaig 10 Year Old
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Personalised Highland Special Reserve Single MaltSherry Cask
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Lagavulin Distillers Edition2022 Release
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Bunnahabhain Stiuireadair
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Dalmore 15 Year Old
+2024-09-30 17:17:37,935 - Whisky Exchange - INFO - Saved product: Talisker Skye
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Ledaig 10 Year Old
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Deanston Virgin Oak
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Bunnahabhain 12 Year Old
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Glenlivet 18 Year Old Batch Reserve
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Macallan 12 Year Old Double Cask
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Octomore Edition 15.35 Year Old American Oak and Oloroso Casks
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Port Charlotte 10 Year Old
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Glendronach 15 Year Old RevivalSherry Cask
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Saved product: Ardbeg 8 Year Old For DiscussionCommittee Release
+2024-09-30 17:17:37,936 - Whisky Exchange - INFO - Scraped 24 products from page 1.
+2024-09-30 17:17:42,719 - Whisky Exchange - INFO - Scraping page 2: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=2
+2024-09-30 17:17:42,720 - Whisky Exchange - INFO - Attempting to fetch URL: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=2 (Attempt 1/3)
+2024-09-30 17:17:46,499 - Whisky Exchange - INFO - Navigated to: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=2
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Edradour 10 Year Old
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Bowmore 12 Year OldSherry Oak
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Macallan 12 Year OldSherry Oak
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Ardbeg 17 Year Old The Legend ReturnsCommittee Exclusive
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Macallan Classic Cut 2023 Release
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Glenglassaugh Sandend
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Tobermory 12 Year Old
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Oban Bay ReserveGame of Thrones Night's Watch
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Kilchoman Machir Bay
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Oban 14 Year Old
+2024-09-30 17:17:53,110 - Whisky Exchange - INFO - Saved product: Laphroaig 16 Year Old
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Ardbeg Uigeadail
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Cardhu Gold ReserveGame of Thrones House Targaryen
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Lagavulin 12 Year OldSpecial Releases 2024
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Dalwhinnie Distillers Edition2022 Release
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Glenmorangie A Tale of Ice Cream
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Bowmore 15 Year OldSherry Oak
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Dalwhinnie 15 Year Old
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Mortlach 15 Year OldGame of Thrones Six Kingdoms
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Balvenie 16 Year Old French OakPineau Cask Finish
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Bowmore 18 Year OldSherry Oak
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Ledaig 18 Year Old
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Glenfarclas 9 Year OldOloroso Sherry Casks
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Saved product: Macallan 18 Year OldSherry Oak 2021 Release
+2024-09-30 17:17:53,111 - Whisky Exchange - INFO - Scraped 24 products from page 2.
+2024-09-30 17:17:57,870 - Whisky Exchange - INFO - Scraping page 3: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=3
+2024-09-30 17:17:57,871 - Whisky Exchange - INFO - Attempting to fetch URL: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=3 (Attempt 1/3)
+2024-09-30 17:18:01,700 - Whisky Exchange - INFO - Navigated to: https://www.thewhiskyexchange.com/c/40/single-malt-scotch-whisky?pg=3

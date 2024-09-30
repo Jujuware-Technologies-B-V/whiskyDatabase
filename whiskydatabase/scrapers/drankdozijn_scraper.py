@@ -57,7 +57,7 @@ class DrankDozijnScraper(BaseScraper):
                 f"Scraped {len(detailed_products)} products from page {page_num}.")
 
             # Check if there's a next page
-            next_page = soup.select_one('a.next')
+            next_page = soup.select_one(self.site_config['next_page_selector'])
             if not next_page:
                 self.logger.info("No next page found. Ending scrape.")
                 break
