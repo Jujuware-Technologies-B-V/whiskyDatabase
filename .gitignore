@@ -14,8 +14,9 @@ env/
 .env/
 
 # Data files
-/data/
+data/*
 *.csv
+*.csv.gz
 
 # Jupyter Notebooks
 .ipynb_checkpoints/

@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 import time
 import random
 import asyncio
-import aiohttp
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
 from typing import List, Dict, Any, Optional
 
@@ -15,6 +14,7 @@ class WhiskyExchangeScraper(BaseScraper):
     def __init__(self, site_config):
         super().__init__(site_config)
         self.exchange_rate = None
+        self.semaphore = asyncio.Semaphore(5)
 
     async def scrape(self):
         """Main scraping method."""

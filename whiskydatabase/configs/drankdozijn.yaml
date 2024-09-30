@@ -1,0 +1,15 @@
+# configs/drankdozijn.yaml
+
+name: 'DrankDozijn'
+base_url: 'https://www.drankdozijn.nl'
+pagination_url: 'https://www.drankdozijn.nl/groep/whisky?pagina={}#products'
+product_list_selector: '.row'
+product_item_selector: '.col-6.col-sm-6.col-md-4.col-lg-3.gutter'
+name_selector: '.card-title.lvl3'
+price_selector: '.current_price'
+link_selector: 'a[href^="/artikel/"]'
+detail_info_selector: '.specs'
+headers:
+  User-Agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36'
+delay: 2
+retries: 3
