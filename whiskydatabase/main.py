@@ -9,7 +9,7 @@ from scrapers.drankdozijn_scraper import DrankDozijnScraper
 
 async def main():
     # Load configurations for all sites
-    site_names = ['gall', 'drankdozijn']
+    site_names = ['drankdozijn', 'gall']
     scraper_tasks = []
 
     for site_name in site_names:

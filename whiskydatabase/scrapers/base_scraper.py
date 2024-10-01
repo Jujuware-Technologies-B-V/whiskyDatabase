@@ -10,6 +10,10 @@ import random
 import csv
 import gzip
 import os
+from bs4 import BeautifulSoup, Tag
+import time
+import uuid
+from datetime import datetime
 
 
 class BaseScraper(ABC):
@@ -23,18 +27,64 @@ class BaseScraper(ABC):
         self.retries = self.site_config.get('retries', 3)
         self.fieldnames = ['retailer', 'name', 'price',
                            'link', 'volume', 'abv', 'scraped_at']
-        ensure_directory('data')
-        self.data_file = os.path.join(
-            'data',
-            f"{self.site_config['name'].lower().replace(' ', '_')}_{
-                get_date_string()}.csv.gz"
-        )
+        self.data_directory = self.get_data_directory()
+        ensure_directory(self.data_directory)
+        self.data_file = self.get_data_filename()
         self.init_data_file()
+        self.semaphore = asyncio.Semaphore(10)
 
-    @abstractmethod
     async def scrape(self) -> None:
-        """Abstract method to be implemented by subclasses."""
-        pass
+        page_num = 1
+        total_products = 0
+
+        while True:
+            url = self.get_page_url(page_num)
+            self.logger.info(f"Scraping page {page_num}: {url}")
+            html_content = await self.make_request(url)
+
+            if html_content is None:
+                self.logger.warning(f"No content retrieved for page {
+                                    page_num}. Stopping scrape.")
+                break
+
+            soup = BeautifulSoup(html_content, 'html.parser')
+            product_list = self.get_product_list(soup)
+
+            if not product_list:
+                self.logger.info(f"No product list found on page {
+                                 page_num}. Ending scrape.")
+                break
+
+            products = self.parse_products(product_list)
+
+            if not products:
+                self.logger.info(f"No products found on page {
+                                 page_num}. Ending scrape.")
+                break
+
+            # Create tasks for fetching product details concurrently
+            detail_tasks = [self.fetch_and_parse_product(
+                product) for product in products]
+            detailed_products = await asyncio.gather(*detail_tasks)
+
+            # Save products
+            self.save_products(detailed_products)
+            total_products += len(detailed_products)
+            self.logger.info(
+                f"Scraped {len(detailed_products)} products from page {page_num}.")
+
+            if not self.has_next_page(soup, page_num):
+                self.logger.info("No next page found. Ending scrape.")
+                break
+
+            page_num += 1
+            await asyncio.sleep(self.delay + random.uniform(1, 3))
+
+        self.logger.info(f"Total products scraped from {
+                         self.site_config['name']}: {total_products}")
+
+    def get_page_url(self, page_num: int) -> str:
+        return self.site_config['pagination_url'].format(page_num)
 
     async def make_request(self, url: str, is_detail_page: bool = False) -> Optional[str]:
         for attempt in range(1, self.retries + 1):
@@ -43,10 +93,7 @@ class BaseScraper(ABC):
                                  url} (Attempt {attempt}/{self.retries})")
                 async with async_playwright() as p:
                     browser = await p.chromium.launch(headless=True)
-                    context = await browser.new_context(
-                        user_agent=self.headers.get(
-                            'User-Agent', 'Mozilla/5.0')
-                    )
+                    context = await browser.new_context(user_agent=self.headers.get('User-Agent', 'Mozilla/5.0'))
                     page = await context.new_page()
                     await page.goto(url, wait_until="networkidle", timeout=60000)
                     self.logger.info(f"Navigated to: {page.url}")
@@ -84,14 +131,70 @@ class BaseScraper(ABC):
                     await asyncio.sleep(backoff_time)
         return None
 
+    def get_product_list(self, soup: BeautifulSoup) -> Optional[Tag]:
+        selector = self.site_config['product_list_selector']
+        product_list = soup.select_one(selector)
+        return product_list
+
+    def parse_products(self, product_list: Tag) -> List[Dict[str, Any]]:
+        products = []
+        product_item_selector = self.site_config['product_item_selector']
+        product_items = product_list.select(product_item_selector)
+
+        for item in product_items:
+            try:
+                product = self.parse_product(item)
+                if product:
+                    products.append(product)
+            except Exception as e:
+                self.logger.error(f"Error parsing product: {e}")
+                continue
+        return products
+
+    @abstractmethod
+    def parse_product(self, item: Tag) -> Optional[Dict[str, Any]]:
+        pass
+
+    async def fetch_and_parse_product(self, product: Dict[str, Any]) -> Dict[str, Any]:
+        async with self.semaphore:
+            if self.site_config.get('fetch_details', True):
+                details = await self.fetch_product_details(product['link'])
+                if details:
+                    product.update(details)
+            product['scraped_at'] = time.strftime('%Y-%m-%d %H:%M:%S')
+            return product
+
     async def fetch_product_details(self, url: str) -> Optional[Dict[str, str]]:
-        """Fetch and parse product details from a product page."""
         content = await self.make_request(url, is_detail_page=True)
         if content:
             return self.parse_product_details(content)
         return None
 
+    def has_next_page(self, soup: BeautifulSoup, current_page_num: int) -> bool:
+        next_page_selector = self.site_config.get('next_page_selector')
+        if next_page_selector:
+            next_page = soup.select_one(next_page_selector)
+            return next_page is not None
+        else:
+            # If no selector is provided, assume pagination continues until no products
+            return True
+
     def init_data_file(self):
+        if not os.path.exists(self.data_file):
+            with gzip.open(self.data_file, 'wt', encoding='utf-8', newline='') as csvfile:
+                writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
+                writer.writeheader()
+            self.logger.info(f"Created new data file: {self.data_file}")
+
+    def get_data_directory(self) -> str:
+        now = datetime.now()
+        return os.path.join('data', 'raw', str(now.year), f"{now.month:02d}", f"{now.day:02d}")
+
+    def get_data_filename(self) -> str:
+        return os.path.join(self.data_directory, f"{self.site_config['name'].lower().replace(' ', '_')}-{uuid.uuid4()}.csv.gz")
+
+    def init_data_file(self):
+        ensure_directory(os.path.dirname(self.data_file))
         if not os.path.exists(self.data_file):
             with gzip.open(self.data_file, 'wt', encoding='utf-8', newline='') as csvfile:
                 writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
@@ -108,5 +211,4 @@ class BaseScraper(ABC):
 
     @abstractmethod
     def parse_product_details(self, content: str) -> Dict[str, str]:
-        """Parse the product details page. To be implemented by subclasses."""
         pass

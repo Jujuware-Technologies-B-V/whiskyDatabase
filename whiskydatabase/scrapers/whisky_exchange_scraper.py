@@ -2,94 +2,35 @@
 
 from scrapers.base_scraper import BaseScraper
 from utils.helpers import fetch_exchange_rate
-from bs4 import BeautifulSoup
-import time
-import random
-import asyncio
+from bs4 import BeautifulSoup, Tag
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
-from typing import List, Dict, Any, Optional
+from typing import Dict, Any, Optional
+import asyncio
+import random
 
 
 class WhiskyExchangeScraper(BaseScraper):
     def __init__(self, site_config):
         super().__init__(site_config)
         self.exchange_rate = None
-        self.semaphore = asyncio.Semaphore(5)
 
     async def scrape(self):
-        """Main scraping method."""
-        # Fetch exchange rate once
         self.exchange_rate = await fetch_exchange_rate(self.logger)
+        await super().scrape()
 
-        page_num = 1
-        total_products = 0
-
-        while True:
-            url = self.site_config['pagination_url'].format(page_num)
-            self.logger.info(f"Scraping page {page_num}: {url}")
-            html_content = await self.make_request(url)
-
-            if html_content is None:
-                self.logger.warning(f"No content retrieved for page {
-                                    page_num}. Stopping scrape.")
-                break
-
-            soup = BeautifulSoup(html_content, 'html.parser')
-            product_list = soup.select(
-                self.site_config['product_list_selector'])
-
-            if not product_list:
-                self.logger.info(f"No product list found on page {
-                                 page_num}. Ending scrape.")
-                break
-
-            products = self.parse_products(product_list[0])
-
-            if not products:
-                self.logger.info(f"No products found on page {
-                                 page_num}. Ending scrape.")
-                break
-
-            # Process products
-            for product in products:
-                # Convert GBP to EUR using self.exchange_rate
-                product['price'] = round(
-                    product['price_gbp'] * self.exchange_rate, 2)
-                product['scraped_at'] = time.strftime('%Y-%m-%d %H:%M:%S')
-                # Remove 'price_gbp' as it's not needed in the CSV output
-                del product['price_gbp']
-
-            # Save products
-            self.save_products(products)
-            total_products += len(products)
-            self.logger.info(
-                f"Scraped {len(products)} products from page {page_num}.")
-
-            page_num += 1
-            await asyncio.sleep(self.delay + random.uniform(1, 3))
-
-        self.logger.info(f"Total products scraped from {
-                         self.site_config['name']}: {total_products}")
-
-    async def make_request(self, url: str) -> Optional[str]:
-        """Makes a request to the given URL and returns the HTML content."""
+    async def make_request(self, url: str, is_detail_page: bool = False) -> Optional[str]:
         for attempt in range(1, self.retries + 1):
             try:
                 self.logger.info(f"Attempting to fetch URL: {
                                  url} (Attempt {attempt}/{self.retries})")
                 async with async_playwright() as p:
                     browser = await p.chromium.launch(headless=True)
-                    context = await browser.new_context(
-                        user_agent=self.headers.get(
-                            'User-Agent', 'Mozilla/5.0')
-                    )
+                    context = await browser.new_context(user_agent=self.headers.get('User-Agent', 'Mozilla/5.0'))
                     page = await context.new_page()
                     await page.goto(url, wait_until="networkidle", timeout=60000)
                     self.logger.info(f"Navigated to: {page.url}")
 
-                    # Implement scrolling specific to Whisky Exchange
                     await page.wait_for_selector(self.site_config['product_list_selector'], timeout=60000)
-                    # Scroll to the bottom of the page to load all products
                     previous_height = None
                     while True:
                         current_height = await page.evaluate('document.body.scrollHeight')
@@ -126,62 +67,45 @@ class WhiskyExchangeScraper(BaseScraper):
                     await asyncio.sleep(backoff_time)
         return None
 
-    def parse_products(self, product_list) -> List[Dict[str, Any]]:
-        """Parses the product list and extracts product data."""
-        products = []
-        product_items = product_list.select(
-            self.site_config['product_item_selector'])
+    def parse_product(self, item: Tag) -> Optional[Dict[str, Any]]:
+        try:
+            name_elem = item.select_one(self.site_config['name_selector'])
+            price_elem = item.select_one(self.site_config['price_selector'])
+            link_elem = item.select_one(self.site_config['link_selector'])
+            meta_elem = item.select_one(self.site_config['meta_selector'])
 
-        for item in product_items:
-            try:
-                name_elem = item.select_one(self.site_config['name_selector'])
-                price_elem = item.select_one(
-                    self.site_config['price_selector'])
-                link_elem = item.select_one(self.site_config['link_selector'])
-                meta_elem = item.select_one(self.site_config['meta_selector'])
+            if name_elem and price_elem and link_elem:
+                name = name_elem.get_text(strip=True)
+                price_gbp = self.parse_price(price_elem.get_text(strip=True))
+                link = self.base_url + link_elem['href']
+                meta = meta_elem.get_text(strip=True) if meta_elem else ""
 
-                if name_elem and price_elem and link_elem:
-                    name = name_elem.get_text(strip=True)
-                    price_gbp = self.parse_price(
-                        price_elem.get_text(strip=True))
-                    link = self.base_url + link_elem['href']
-                    meta = meta_elem.get_text(strip=True) if meta_elem else ""
+                volume, abv = self.parse_meta(meta)
+                price = round(price_gbp * self.exchange_rate, 2)
 
-                    volume, abv = self.parse_meta(meta)
-
-                    product_data = {
-                        'name': name,
-                        'price_gbp': price_gbp,
-                        'link': link,
-                        'volume': volume,
-                        'abv': abv,
-                        # 'price' and 'scraped_at' will be added later
-                    }
-
-                    products.append(product_data)
-            except Exception as e:
-                self.logger.error(f"Error parsing product: {e}")
-                continue
-
-        return products
+                return {
+                    'name': name,
+                    'price': price,
+                    'link': link,
+                    'volume': volume,
+                    'abv': abv,
+                }
+        except Exception as e:
+            self.logger.error(f"Error parsing product: {e}")
+        return None
 
     def parse_price(self, price_string):
-        """Parses the price string and converts it to a float."""
         return float(price_string.replace('£', '').replace(',', ''))
 
     def parse_meta(self, meta_string):
-        """Parses the meta string to extract volume and alcohol by volume (ABV)."""
         if meta_string:
             parts = meta_string.split('/')
-            volume = parts[0].strip() if len(parts) > 0 else ''
-            abv = parts[1].strip() if len(parts) > 1 else ''
-
-            volume = volume.replace('cl', '').strip() if volume else ''
-            abv = abv.replace('%', '').strip() if abv else ''
-
+            volume = parts[0].strip().replace(
+                'cl', '').strip() if len(parts) > 0 else ''
+            abv = parts[1].strip().replace(
+                '%', '').strip() if len(parts) > 1 else ''
             return volume, abv
         return '', ''
 
     def parse_product_details(self, content: str) -> Dict[str, str]:
-        """Not used since all required data is available from the product list."""
         return {}
