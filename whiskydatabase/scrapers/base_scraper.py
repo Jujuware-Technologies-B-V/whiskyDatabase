@@ -73,6 +73,12 @@ class BaseScraper(ABC):
                     break
 
                 page_num += 1
+
+                if self.site_config.get('dev_mode') and page_num > int(self.site_config.get('page_limit')):
+                    self.logger.info(f"Reached development mode page limit ({
+                                     self.site_config['page_limit']}). Stopping scrape.")
+                    break
+
                 await asyncio.sleep(self.delay + random.uniform(1, 3))
 
         except Exception as e:
@@ -217,7 +223,7 @@ class BaseScraper(ABC):
         ensure_directory(self.data_directory)
         self.data_file = self._get_data_filename()
         self._init_data_file()
-        self.semaphore = asyncio.Semaphore(10)
+        self.semaphore = asyncio.Semaphore(5)
 
     def __setup_logger(self) -> logging.Logger:
         logger = logging.getLogger(self.retailer)

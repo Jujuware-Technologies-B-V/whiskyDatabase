@@ -29,11 +29,11 @@ class WhiskyExchangeScraper(BaseScraper):
 
             if name_elem and price_elem and link_elem:
                 name = name_elem.get_text(strip=True)
-                price_gbp = self.parse_price(price_elem.get_text(strip=True))
+                price_gbp = self._parse_price(price_elem.get_text(strip=True))
                 link = self.base_url + link_elem['href']
                 meta = meta_elem.get_text(strip=True) if meta_elem else ""
 
-                volume, abv = self.parse_meta(meta)
+                volume, abv = self._parse_meta(meta)
                 price = round(price_gbp * self.exchange_rate, 2)
 
                 return {
@@ -67,7 +67,7 @@ class WhiskyExchangeScraper(BaseScraper):
                     self.logger.info(f"Navigated to: {page.url}")
 
                     await page.wait_for_selector(self.site_config['product_list_selector'], timeout=60000)
-                    await self._scroll_page(page)
+                    await self.__scroll_page(page)
 
                     content = await page.content()
                     await context.close()

@@ -46,3 +46,5 @@ whiskydatabase/data/*.csv
 
 # Keep the anomalies.csv file
 !whiskydatabase/anomalies.csv
+
+.env

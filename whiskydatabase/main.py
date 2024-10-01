@@ -1,27 +1,36 @@
 # main.py
 
 import asyncio
+import os
 from utils.helpers import load_config
+from dotenv import load_dotenv
 from scrapers.gall_scraper import GallScraper
 from scrapers.whisky_exchange_scraper import WhiskyExchangeScraper
 from scrapers.drankdozijn_scraper import DrankDozijnScraper
 
+load_dotenv()
+
+
+SCRAPER_MAP = {
+    'whisky_exchange': WhiskyExchangeScraper
+}
+
+# Development mode settings
+DEV_MODE = os.environ.get('SCRAPER_DEV_MODE', 'true')
+DEV_PAGE_LIMIT = os.environ.get('DEV_PAGE_LIMIT', 1)
+
 
 async def main():
-    # Load configurations for all sites
-    site_names = ['drankdozijn']
     scraper_tasks = []
 
-    for site_name in site_names:
+    for site_name, scraper_class in SCRAPER_MAP.items():
         site_config = load_config(site_name)
-        if site_name == 'gall':
-            scraper = GallScraper(site_config)
-        elif site_name == 'whisky_exchange':
-            scraper = WhiskyExchangeScraper(site_config)
-        elif site_name == 'drankdozijn':
-            scraper = DrankDozijnScraper(site_config)
-        else:
-            continue
+
+        if DEV_MODE:
+            site_config['dev_mode'] = True
+            site_config['page_limit'] = DEV_PAGE_LIMIT
+
+        scraper = scraper_class(site_config)
         scraper_tasks.append(scraper.scrape())
 
     # Run all scrapers concurrently
