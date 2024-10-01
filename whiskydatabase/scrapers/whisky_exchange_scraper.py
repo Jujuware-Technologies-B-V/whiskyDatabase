@@ -1,6 +1,6 @@
 # scrapers/whisky_exchange_scraper.py
 
-from scrapers.base_scraper import BaseScraper
+from .base_scraper import BaseScraper
 from utils.helpers import fetch_exchange_rate
 from bs4 import BeautifulSoup, Tag
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
@@ -14,59 +14,12 @@ class WhiskyExchangeScraper(BaseScraper):
         super().__init__(site_config)
         self.exchange_rate = None
 
+    # Public methods
     async def scrape(self):
         self.exchange_rate = await fetch_exchange_rate(self.logger)
         await super().scrape()
 
-    async def make_request(self, url: str, is_detail_page: bool = False) -> Optional[str]:
-        for attempt in range(1, self.retries + 1):
-            try:
-                self.logger.info(f"Attempting to fetch URL: {
-                                 url} (Attempt {attempt}/{self.retries})")
-                async with async_playwright() as p:
-                    browser = await p.chromium.launch(headless=True)
-                    context = await browser.new_context(user_agent=self.headers.get('User-Agent', 'Mozilla/5.0'))
-                    page = await context.new_page()
-                    await page.goto(url, wait_until="networkidle", timeout=60000)
-                    self.logger.info(f"Navigated to: {page.url}")
-
-                    await page.wait_for_selector(self.site_config['product_list_selector'], timeout=60000)
-                    previous_height = None
-                    while True:
-                        current_height = await page.evaluate('document.body.scrollHeight')
-                        if previous_height == current_height:
-                            break
-                        await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
-                        await asyncio.sleep(2)
-                        previous_height = current_height
-
-                    content = await page.content()
-                    await context.close()
-                    await browser.close()
-                    await asyncio.sleep(self.delay + random.uniform(0, 1))
-                    return content
-            except PlaywrightTimeoutError as e:
-                self.logger.error(f"Timeout when fetching {url}: {e}")
-                if attempt == self.retries:
-                    self.logger.error(f"Failed to fetch {url} after {
-                                      self.retries} attempts.")
-                    return None
-                else:
-                    backoff_time = self.delay * (2 ** attempt)
-                    self.logger.info(f"Retrying in {backoff_time} seconds...")
-                    await asyncio.sleep(backoff_time)
-            except Exception as e:
-                self.logger.error(f"Error fetching {url}: {e}")
-                if attempt == self.retries:
-                    self.logger.error(f"Failed to fetch {url} after {
-                                      self.retries} attempts.")
-                    return None
-                else:
-                    backoff_time = self.delay * (2 ** attempt)
-                    self.logger.info(f"Retrying in {backoff_time} seconds...")
-                    await asyncio.sleep(backoff_time)
-        return None
-
+    # Abstract method implementations
     def parse_product(self, item: Tag) -> Optional[Dict[str, Any]]:
         try:
             name_elem = item.select_one(self.site_config['name_selector'])
@@ -94,10 +47,52 @@ class WhiskyExchangeScraper(BaseScraper):
             self.logger.error(f"Error parsing product: {e}")
         return None
 
-    def parse_price(self, price_string):
+    def parse_product_details(self, content: str) -> Dict[str, str]:
+        return {}
+
+    def _get_page_url(self, page_num: int) -> str:
+        return self.site_config['pagination_url'].format(page_num)
+
+    # Protected methods
+    async def _make_request(self, url: str, is_detail_page: bool = False) -> Optional[str]:
+        for attempt in range(1, self.retries + 1):
+            try:
+                self.logger.info(f"Attempting to fetch URL: {
+                                 url} (Attempt {attempt}/{self.retries})")
+                async with async_playwright() as p:
+                    browser = await p.chromium.launch(headless=True)
+                    context = await browser.new_context(user_agent=self.headers.get('User-Agent', 'Mozilla/5.0'))
+                    page = await context.new_page()
+                    await page.goto(url, wait_until="networkidle", timeout=60000)
+                    self.logger.info(f"Navigated to: {page.url}")
+
+                    await page.wait_for_selector(self.site_config['product_list_selector'], timeout=60000)
+                    await self._scroll_page(page)
+
+                    content = await page.content()
+                    await context.close()
+                    await browser.close()
+                    await asyncio.sleep(self.delay + random.uniform(0, 1))
+                    return content
+            except PlaywrightTimeoutError as e:
+                self.logger.error(f"Timeout when fetching {url}: {e}")
+            except Exception as e:
+                self.logger.error(f"Error fetching {url}: {e}")
+
+            if attempt == self.retries:
+                self.logger.error(f"Failed to fetch {url} after {
+                                  self.retries} attempts.")
+                return None
+            else:
+                backoff_time = self.delay * (2 ** attempt)
+                self.logger.info(f"Retrying in {backoff_time} seconds...")
+                await asyncio.sleep(backoff_time)
+        return None
+
+    def _parse_price(self, price_string):
         return float(price_string.replace('£', '').replace(',', ''))
 
-    def parse_meta(self, meta_string):
+    def _parse_meta(self, meta_string):
         if meta_string:
             parts = meta_string.split('/')
             volume = parts[0].strip().replace(
@@ -107,5 +102,13 @@ class WhiskyExchangeScraper(BaseScraper):
             return volume, abv
         return '', ''
 
-    def parse_product_details(self, content: str) -> Dict[str, str]:
-        return {}
+    # Private methods
+    async def __scroll_page(self, page):
+        previous_height = None
+        while True:
+            current_height = await page.evaluate('document.body.scrollHeight')
+            if previous_height == current_height:
+                break
+            await page.evaluate('window.scrollTo(0, document.body.scrollHeight)')
+            await asyncio.sleep(2)
+            previous_height = current_height
