@@ -20,7 +20,7 @@ class GallScraper(BaseScraper):
             if name_elem and price_elem and link_elem:
                 return {
                     'name': name_elem.get_text(strip=True),
-                    'price': self.parse_price(price_elem.get_text(strip=True)),
+                    'price': self._parse_price(price_elem.get_text(strip=True)),
                     'link': self.base_url + link_elem['href'],
                 }
         except Exception as e:
