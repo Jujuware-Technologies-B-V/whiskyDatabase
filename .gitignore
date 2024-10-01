@@ -48,3 +48,4 @@ whiskydatabase/data/*.csv
 !whiskydatabase/anomalies.csv
 
 .env
+/logs*
