@@ -1,3 +1,5 @@
+# configs/drankdozijn.yaml
+
 name: 'DrankDozijn'
 base_url: 'https://www.drankdozijn.nl'
 retailer_country: 'NL'
@@ -5,16 +7,62 @@ currency: 'EUR'
 pagination_url: 'https://www.drankdozijn.nl/groep/whisky?pagina={}&listLength=12#products'
 product_list_selector: 'main.grid .row'
 product_item_selector: 'main.grid .row > section.col-6.col-sm-6.col-md-4.col-lg-3.gutter'
-name_selector: '.product_info h3.card-title.lvl3'
-price_selector: '.price_info .current_price span[content]:last-child'
-original_price_selector: '.price_info .old_price'
-link_selector: '.product_info a[href^="/artikel/"]'
-image_selector: 'img.product_image_primary'
-next_page_selector: 'button.btn.solid.right[rel="next"]'
-detail_info_selector: '.specs'
-description_selector: '.description'
-rating_selector: '.rating_score'
-review_count_selector: '.review-count'
-in_stock_selector: '.txt-icon-pair .inline'
+fields:
+  name:
+    selector: '.product_info h3.card-title.lvl3'
+    parser: 'str'
+  price:
+    selector: '.price_info .current_price span[content]:last-child'
+    parser: 'float'
+  original_price:
+    selector: '.price_info .old_price'
+    parser: 'float'
+  link:
+    selector: '.product_info a[href^="/artikel/"]'
+    parser: 'url'
+    attribute: 'href' # Extract the 'href' attribute
+  image_url:
+    selector: 'img.product_image_primary'
+    parser: 'url'
+    attribute: 'src' # Extract the 'src' attribute
+detail_fields:
+  description:
+    selector: '.description'
+    parser: 'str'
+  volume:
+    selector: '.specs tr:-soup-contains("Inhoud") td'
+    parser: 'str'
+  abv:
+    selector: '.specs tr:-soup-contains("Alcoholpercentage") td'
+    parser: 'float'
+  category:
+    selector: '.specs tr:-soup-contains("Categorie") td'
+    parser: 'str'
+  brand:
+    selector: '.specs tr:-soup-contains("Merk") td'
+    parser: 'str'
+  country:
+    selector: '.specs tr:-soup-contains("Land") td'
+    parser: 'str'
+  subcategory:
+    selector: '.specs tr:-soup-contains("Smaakprofiel") td'
+    parser: 'str'
+  series:
+    selector: '.specs tr:-soup-contains("Serie") td'
+    parser: 'str'
+  rating:
+    selector: '.rating_score'
+    parser: 'float'
+  num_reviews:
+    selector: '.review-count'
+    parser: 'int'
+  in_stock:
+    selector: '.txt-icon-pair .inline'
+    parser: 'bool'
+  product_id:
+    selector: '.product_info a[href^="/artikel/"]'
+    parser: 'regex'
+    pattern: '/artikel/(.+)$' # Extracts the segment after '/artikel/'
 delay: 2
 retries: 3
+enabled: true

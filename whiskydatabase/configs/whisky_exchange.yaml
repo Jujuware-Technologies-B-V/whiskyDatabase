@@ -10,3 +10,4 @@ meta_selector: 'p.product-card__meta'
 delay: 2
 retries: 3
 fetch_details: False
+enabled: False

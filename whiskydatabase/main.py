@@ -1,46 +1,52 @@
-# main.py
+# main.py (Updated)
 
 import asyncio
 import os
-from utils.helpers import load_config
+import yaml
+from utils.helpers import ensure_directory
 from dotenv import load_dotenv
-from scrapers.gall_scraper import GallScraper
-from scrapers.whisky_exchange_scraper import WhiskyExchangeScraper
-from scrapers.clubwhisky_nl_scraper import ClubWhiskyScraper
-from scrapers.drankdozijn_scraper import DrankDozijnScraper
-from scrapers.whisky_nl_scraper import WhiskyNLScraper
-from scrapers.heinemann_shop_scraper import HeinemannShopScraper
+from scrapers.base_scraper import BaseScraper
+from scrapers.scraper_factory import ScraperFactory
+
 load_dotenv()
 
+CONFIG_DIR = 'configs'
+MAX_CONCURRENT_SCRAPERS = int(
+    os.getenv('MAX_CONCURRENT_SCRAPERS', 50))  # Adjust as needed
 
-SCRAPER_MAP = {
-    # 'whisky_exchange': WhiskyExchangeScraper,
-    # 'gall': GallScraper,
-    # 'drankdozijn': DrankDozijnScraper,
-    # 'club_whisky': ClubWhiskyScraper,
-    # 'whisky_nl': WhiskyNLScraper,
-    'heinemann_shop': HeinemannShopScraper
-}
 
-# Development mode settings
-DEV_MODE = os.environ.get('SCRAPER_DEV_MODE', 'true')
-DEV_PAGE_LIMIT = os.environ.get('DEV_PAGE_LIMIT', 1)
+def load_all_configs(config_dir: str):
+    configs = {}
+    for filename in os.listdir(config_dir):
+        if filename.endswith('.yaml') or filename.endswith('.yml'):
+            site_name = filename.rsplit('.', 1)[0]
+            with open(os.path.join(config_dir, filename), 'r') as f:
+                configs[site_name] = yaml.safe_load(f)
+    return configs
+
+
+async def bound_scrape(scraper: BaseScraper, semaphore: asyncio.Semaphore):
+    async with semaphore:
+        await scraper.scrape()
 
 
 async def main():
     scraper_tasks = []
+    configs = load_all_configs(CONFIG_DIR)
+    dev_mode = os.environ.get('SCRAPER_DEV_MODE', 'true').lower() == 'true'
+    dev_page_limit = int(os.environ.get('DEV_PAGE_LIMIT', 1))
+    semaphore = asyncio.Semaphore(MAX_CONCURRENT_SCRAPERS)
 
-    for site_name, scraper_class in SCRAPER_MAP.items():
-        site_config = load_config(site_name)
+    for site_name, site_config in configs.items():
+        if site_config.get('enabled', True):
+            if dev_mode:
+                site_config['dev_mode'] = True
+                site_config['page_limit'] = dev_page_limit
 
-        if DEV_MODE:
-            site_config['dev_mode'] = True
-            site_config['page_limit'] = DEV_PAGE_LIMIT
+            scraper = ScraperFactory.create_scraper(site_config)
+            scraper_tasks.append(bound_scrape(scraper, semaphore))
 
-        scraper = scraper_class(site_config)
-        scraper_tasks.append(scraper.scrape())
-
-    # Run all scrapers concurrently
+    # Run all scrapers with concurrency limits
     await asyncio.gather(*scraper_tasks)
 
 if __name__ == '__main__':

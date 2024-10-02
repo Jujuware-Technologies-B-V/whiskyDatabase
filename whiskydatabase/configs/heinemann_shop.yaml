@@ -5,16 +5,58 @@ currency: 'EUR'
 pagination_url: 'https://www.heinemann-shop.com/en/global/whisky/c/cat_5150/?q=%3Arelevance&page={}'
 product_list_selector: '.c-product-listing'
 product_item_selector: '.c-product-card'
-name_selector: '.c-product-card__headline'
-price_selector: '.c-price-box .c-price'
-original_price_selector: '.c-price-box__old-price'
-link_selector: '.c-product-card__link'
-image_selector: '.c-product-card__image'
-next_page_selector: '.c-pagination-bar__item:last-child .c-pagination-bar__button'
-detail_info_selector: '.c-product-preview'
-description_selector: '.c-accordion__content p'
-product_details_table_selector: '.c-product-details-table'
-in_stock_selector: '.c-stock-display__state'
-product_image_selector: '.c-product-preview__large-image img'
+fields:
+  name:
+    selector: '.c-product-card__headline'
+    parser: 'str'
+  price:
+    selector: '.c-price-box .c-price'
+    parser: 'float'
+  original_price:
+    selector: '.c-price-box__old-price'
+    parser: 'float'
+  link:
+    selector: '.c-product-card__link'
+    parser: 'url'
+    attribute: 'href'
+  image_url:
+    selector: '.c-product-card__image img'
+    parser: 'url'
+    attribute: 'src'
+detail_fields:
+  description:
+    selector: '.c-accordion__content p'
+    parser: 'str'
+  volume:
+    selector: '.c-product-details-table tr:-soup-contains("Volume") td'
+    parser: 'str'
+  abv:
+    selector: '.c-product-details-table tr:-soup-contains("Alcohol by Volume") td'
+    parser: 'float'
+  category:
+    selector: '.c-product-details-table tr:-soup-contains("Trade Name") .c-product-details-table__value'
+    parser: 'str'
+  brand:
+    selector: '.c-product-details-table tr:-soup-contains("Manufacturer Information") .c-product-details-table__value'
+    parser: 'str'
+  country:
+    selector: '.c-product-details-table tr:-soup-contains("Country of Origin") .c-product-details-table__value'
+    parser: 'str'
+  region:
+    selector: '.c-product-details-table tr:-soup-contains("Whisky Region") .c-product-details-table__value'
+    parser: 'str'
+  rating:
+    selector: '#ratings-summary .rating-result'
+    parser: 'float'
+  num_reviews:
+    selector: '.reviews-actions .action.view'
+    parser: 'int'
+  in_stock:
+    selector: '.c-stock-display__state'
+    parser: 'bool'
+  product_id:
+    selector: '.c-product-details-table tr:-soup-contains("Item No.") .c-product-details-table__value'
+    parser: 'str'
 delay: 2
 retries: 3
+enabled: True
