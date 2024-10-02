@@ -115,7 +115,7 @@ class BaseScraper(ABC):
         products = []
         product_items = product_list.select(
             self.site_config['product_item_selector'])
-
+        self.logger.debug(f'Found {len(product_items)} product items.')
         for item in product_items:
             try:
                 product = self.parse_product(item)
@@ -123,6 +123,7 @@ class BaseScraper(ABC):
                     products.append(product)
             except Exception as e:
                 self.logger.error(f"Error parsing product: {e}")
+        self.logger.info(f'Parsed {len(products)} products.')
         return products
 
     def _has_next_page(self, soup: BeautifulSoup, current_page_num: int) -> bool:
@@ -152,6 +153,7 @@ class BaseScraper(ABC):
             for product in products:
                 product['retailer'] = self.retailer
                 product['retailer_country'] = self.retailer_country
+                product['currency'] = self.currency
                 writer.writerow(product)
                 self.logger.debug(f"Saved product: {product['name']}")
         self.logger.info(f"Successfully saved {len(products)} products")
@@ -221,6 +223,7 @@ class BaseScraper(ABC):
         self.header_generator: HeaderGenerator = HeaderGenerator()
         self.retailer: str = self.site_config['name']
         self.retailer_country: str = self.site_config['retailer_country']
+        self.currency: str = self.site_config['currency']
         self.logger: logging.Logger = self.__setup_logger()
         self.headers: Dict[str, str] = self.site_config.get('headers', {})
         self.base_url: str = self.site_config['base_url']

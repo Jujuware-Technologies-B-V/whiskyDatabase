@@ -6,15 +6,20 @@ from utils.helpers import load_config
 from dotenv import load_dotenv
 from scrapers.gall_scraper import GallScraper
 from scrapers.whisky_exchange_scraper import WhiskyExchangeScraper
+from scrapers.clubwhisky_nl_scraper import ClubWhiskyScraper
 from scrapers.drankdozijn_scraper import DrankDozijnScraper
-
+from scrapers.whisky_nl_scraper import WhiskyNLScraper
+from scrapers.heinemann_shop_scraper import HeinemannShopScraper
 load_dotenv()
 
 
 SCRAPER_MAP = {
     # 'whisky_exchange': WhiskyExchangeScraper,
     # 'gall': GallScraper,
-    'drankdozijn': DrankDozijnScraper
+    # 'drankdozijn': DrankDozijnScraper,
+    # 'club_whisky': ClubWhiskyScraper,
+    # 'whisky_nl': WhiskyNLScraper,
+    'heinemann_shop': HeinemannShopScraper
 }
 
 # Development mode settings

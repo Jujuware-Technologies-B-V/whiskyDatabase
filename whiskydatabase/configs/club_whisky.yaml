@@ -1,0 +1,22 @@
+name: 'Club Whisky'
+base_url: 'https://www.club-whisky.nl'
+retailer_country: 'NL'
+currency: 'EUR'
+pagination_url: 'https://www.club-whisky.nl/soorten/page{}.html' # Updated based on previous feedback
+product_list_selector: '.products-holder'
+product_item_selector: '.product'
+name_selector: '.info .title'
+price_container_selector: '.info .price'
+current_price_selector: '.grey' # Selector for current price when discounted
+current_price_fallback_selector: '' # Empty string indicates no additional selector
+original_price_selector: '.old-price' # Selector for original price when discounted
+link_selector: '.image-wrap a'
+image_selector: '.image-wrap img'
+next_page_selector: '.pagination .next a'
+detail_info_selector: '.specifications'
+description_selector: '.product-fullcontent'
+rating_selector: '.stars-holder .stars'
+review_count_selector: '.reviewtop a'
+in_stock_selector: '.spec-line:last-child .spec-title:last-child'
+delay: 2
+retries: 3

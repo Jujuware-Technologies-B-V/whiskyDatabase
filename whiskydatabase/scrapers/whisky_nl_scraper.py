@@ -1,4 +1,4 @@
-# scrapers/drankdozijn_scraper.py
+# scrapers/whisky_nl_scraper.py
 
 from .base_scraper import BaseScraper
 from bs4 import BeautifulSoup, Tag
@@ -7,7 +7,7 @@ import re
 from datetime import datetime
 
 
-class DrankDozijnScraper(BaseScraper):
+class WhiskyNLScraper(BaseScraper):
     def __init__(self, site_config: Dict[str, Any]):
         super().__init__(site_config)
 
@@ -23,19 +23,19 @@ class DrankDozijnScraper(BaseScraper):
             if name_elem and price_elem and link_elem:
                 product = {
                     'name': name_elem.get_text(strip=True),
-                    'price': self._parse_price(price_elem['content']),
-                    'link': self.base_url + link_elem['href'],
+                    'price': self._parse_price(price_elem['data-price-amount']),
+                    'link': link_elem['href'],
                     'image_url': image_elem['src'] if image_elem else None,
                     'scraped_at': datetime.now().isoformat()
                 }
 
                 if original_price_elem:
                     product['original_price'] = self._parse_price(
-                        original_price_elem.get_text(strip=True))
+                        original_price_elem['data-price-amount'])
 
                 # Extract product ID from the link
                 product_id_match = re.search(
-                    r'/artikel/(.+)$', product['link'])
+                    r'/([^/]+)\.html$', product['link'])
                 if product_id_match:
                     product['product_id'] = product_id_match.group(1)
 
@@ -52,8 +52,8 @@ class DrankDozijnScraper(BaseScraper):
         if specs_table:
             rows = specs_table.find_all('tr')
             for row in rows:
-                key = row.select_one('.key')
-                value = row.select_one('.value')
+                key = row.select_one('.col.label')
+                value = row.select_one('.col.data')
                 if key and value:
                     key_text = key.get_text(strip=True)
                     value_text = value.get_text(strip=True)
@@ -63,14 +63,10 @@ class DrankDozijnScraper(BaseScraper):
                         details['abv'] = value_text.replace('%', '').strip()
                     elif key_text == 'Categorie':
                         details['category'] = value_text
-                    elif key_text == 'Merk':
+                    elif key_text == 'Merk / Distilleerderij':
                         details['brand'] = value_text
                     elif key_text == 'Land':
                         details['country'] = value_text
-                    elif key_text == 'Smaakprofiel':
-                        details['subcategory'] = value_text
-                    elif key_text == 'Serie':
-                        details['series'] = value_text
 
         description = soup.select_one(self.site_config['description_selector'])
         if description:
@@ -78,19 +74,18 @@ class DrankDozijnScraper(BaseScraper):
 
         rating_score = soup.select_one(self.site_config['rating_selector'])
         if rating_score:
-            details['rating'] = rating_score.get_text(strip=True)
+            details['rating'] = rating_score.get('title', '').split()[1]
 
         review_count = soup.select_one(
             self.site_config['review_count_selector'])
         if review_count:
-            details['num_reviews'] = review_count.get_text(
-                strip=True).replace('(', '').replace(')', '').split()[0]
+            details['num_reviews'] = review_count.get_text(strip=True).split()[
+                0]
 
         in_stock_elem = soup.select_one(self.site_config['in_stock_selector'])
-        if in_stock_elem and 'Direct leverbaar' in in_stock_elem.get_text(strip=True):
-            details['in_stock'] = 'Yes'
-        else:
-            details['in_stock'] = 'No'
+        if in_stock_elem:
+            details['in_stock'] = 'Yes' if 'available' in in_stock_elem.get(
+                'class', []) else 'No'
 
         return details
 
@@ -98,17 +93,6 @@ class DrankDozijnScraper(BaseScraper):
         return self.site_config['pagination_url'].format(page_num)
 
     def _parse_price(self, price_string: str) -> float:
-        # Remove any non-digit characters except for ',' and '.'
-        price_string = re.sub(r'[^\d,.]', '', price_string)
-
-        # Replace comma with dot if comma is used as decimal separator
-        if ',' in price_string and '.' not in price_string:
-            price_string = price_string.replace(',', '.')
-
-        # Remove any thousands separators
-        price_string = price_string.replace(',', '')
-
-        # Convert to float
         try:
             return float(price_string)
         except ValueError:

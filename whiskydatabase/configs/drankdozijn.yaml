@@ -1,6 +1,7 @@
 name: 'DrankDozijn'
 base_url: 'https://www.drankdozijn.nl'
 retailer_country: 'NL'
+currency: 'EUR'
 pagination_url: 'https://www.drankdozijn.nl/groep/whisky?pagina={}&listLength=12#products'
 product_list_selector: 'main.grid .row'
 product_item_selector: 'main.grid .row > section.col-6.col-sm-6.col-md-4.col-lg-3.gutter'
