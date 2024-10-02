@@ -1,14 +1,19 @@
 name: 'DrankDozijn'
 base_url: 'https://www.drankdozijn.nl'
-pagination_url: 'https://www.drankdozijn.nl/groep/whisky?pagina={}&listLength=192#products'
+retailer_country: 'NL'
+pagination_url: 'https://www.drankdozijn.nl/groep/whisky?pagina={}&listLength=12#products'
 product_list_selector: 'main.grid .row'
 product_item_selector: 'main.grid .row > section.col-6.col-sm-6.col-md-4.col-lg-3.gutter'
 name_selector: '.product_info h3.card-title.lvl3'
-price_selector: '.product_info .current_price span[content]:last-child'
+price_selector: '.price_info .current_price span[content]:last-child'
+original_price_selector: '.price_info .old_price'
 link_selector: '.product_info a[href^="/artikel/"]'
+image_selector: 'img.product_image_primary'
 next_page_selector: 'button.btn.solid.right[rel="next"]'
 detail_info_selector: '.specs'
-headers:
-  User-Agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36'
+description_selector: '.description'
+rating_selector: '.rating_score'
+review_count_selector: '.review-count'
+in_stock_selector: '.txt-icon-pair .inline'
 delay: 2
 retries: 3

@@ -2,8 +2,8 @@
 
 from typing import Dict, Optional, List, Any
 from abc import ABC, abstractmethod
-from utils.logger import get_logger
-from utils.helpers import ensure_directory, get_date_string
+from utils.helpers import ensure_directory
+from utils.headers import HeaderGenerator
 from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
 import asyncio
 import random
@@ -26,9 +26,14 @@ class BaseScraper(ABC):
     logger: logging.Logger = field(init=False)
     semaphore: asyncio.Semaphore = field(init=False)
     data_file: str = field(init=False)
+    header_generator: HeaderGenerator = field(init=False)
 
-    fieldnames: ClassVar[List[str]] = ['retailer', 'name',
-                                       'price', 'link', 'volume', 'abv', 'scraped_at']
+    fieldnames: ClassVar[List[str]] = [
+        'retailer', 'retailer_country', 'name', 'price', 'original_price',
+        'currency', 'link', 'volume', 'abv', 'category', 'subcategory', 'brand', 'country',
+        'region', 'description', 'rating', 'num_reviews', 'in_stock', 'image_url', 'product_id', 'series',
+        'scraped_at'
+    ]
 
     # Public methods
     async def scrape(self) -> None:
@@ -146,6 +151,7 @@ class BaseScraper(ABC):
             writer = csv.DictWriter(csvfile, fieldnames=self.fieldnames)
             for product in products:
                 product['retailer'] = self.retailer
+                product['retailer_country'] = self.retailer_country
                 writer.writerow(product)
                 self.logger.debug(f"Saved product: {product['name']}")
         self.logger.info(f"Successfully saved {len(products)} products")
@@ -157,7 +163,7 @@ class BaseScraper(ABC):
                                   url} (Attempt {attempt}/{self.retries})")
                 async with async_playwright() as p:
                     browser = await p.chromium.launch(headless=True)
-                    context = await browser.new_context(user_agent=self.headers.get('User-Agent', 'Mozilla/5.0'))
+                    context = await browser.new_context(user_agent=self.header_generator.generate()['User-Agent'])
                     page = await context.new_page()
                     await page.goto(url, wait_until="networkidle", timeout=60000)
                     self.logger.info(f"Navigated to: {page.url}")
@@ -212,18 +218,19 @@ class BaseScraper(ABC):
 
     # Setup methods
     def __post_init__(self):
-        self.retailer = self.site_config['name']
-        # Changed from _setup_logger to __setup_logger
-        self.logger = self.__setup_logger()
-        self.headers = self.site_config.get('headers', {})
-        self.base_url = self.site_config['base_url']
-        self.delay = self.site_config.get('delay', 1)
-        self.retries = self.site_config.get('retries', 3)
-        self.data_directory = self._get_data_directory()
+        self.header_generator: HeaderGenerator = HeaderGenerator()
+        self.retailer: str = self.site_config['name']
+        self.retailer_country: str = self.site_config['retailer_country']
+        self.logger: logging.Logger = self.__setup_logger()
+        self.headers: Dict[str, str] = self.site_config.get('headers', {})
+        self.base_url: str = self.site_config['base_url']
+        self.delay: int = self.site_config.get('delay', 1)
+        self.retries: int = self.site_config.get('retries', 3)
+        self.data_directory: str = self._get_data_directory()
         ensure_directory(self.data_directory)
-        self.data_file = self._get_data_filename()
+        self.data_file: str = self._get_data_filename()
         self._init_data_file()
-        self.semaphore = asyncio.Semaphore(5)
+        self.semaphore: asyncio.Semaphore = asyncio.Semaphore(5)
 
     def __setup_logger(self) -> logging.Logger:
         logger = logging.getLogger(self.retailer)

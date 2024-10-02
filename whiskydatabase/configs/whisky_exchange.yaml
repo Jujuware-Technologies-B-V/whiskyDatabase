@@ -7,8 +7,6 @@ name_selector: 'p.product-card__name'
 price_selector: 'p.product-card__price'
 link_selector: 'a.product-card'
 meta_selector: 'p.product-card__meta'
-headers:
-  User-Agent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0 Safari/537.36'
 delay: 2
 retries: 3
 fetch_details: False

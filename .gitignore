@@ -49,3 +49,4 @@ whiskydatabase/data/*.csv
 
 .env
 /logs*
+.DS_Store

@@ -12,7 +12,9 @@ load_dotenv()
 
 
 SCRAPER_MAP = {
-    'whisky_exchange': WhiskyExchangeScraper
+    # 'whisky_exchange': WhiskyExchangeScraper,
+    # 'gall': GallScraper,
+    'drankdozijn': DrankDozijnScraper
 }
 
 # Development mode settings
