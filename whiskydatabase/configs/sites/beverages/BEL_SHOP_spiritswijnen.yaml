@@ -1,9 +1,9 @@
 scraper_type: 'shopify'
-name: 'The Scottish Gantry'
-base_url: 'https://thescottishgantry.com/'
-retailer_country: 'GB'
+name: 'Spirits Wijnen'
+base_url: 'https://spiritswijnen.be'
+retailer_country: 'BEL'
 currency: 'EUR'
-request_url: 'https://thescottishgantry.com/collections/whisky/products.json'
+request_url: 'https://spiritswijnen.be/collections/whisky/products.json'
 request_method: 'GET'
 request_payload:
   limit: 250
@@ -14,15 +14,15 @@ response_mapping:
   fields:
     name: 'title'
     price: 'variants[0].price'
-    original_price: 'variants[0].compare_at_price || `null`'
-    link: "join('', ['https://thescottishgantry.com/collections/whisky/products/', handle])"
+    original_price: 'null'
+    link: "join('', ['https://spiritswijnen.be/collections/whisky/products/', handle])"
     category: 'product_type'
     subcategory: 'tags[0] || `null`'
     brand: 'vendor'
     description: 'body_html'
     in_stock: 'variants[0].available'
     image_url: 'images[0].src'
-    product_id: 'variants[0].sku'
+    product_id: 'variants[0].product_id'
 
 pagination:
   type: 'page'

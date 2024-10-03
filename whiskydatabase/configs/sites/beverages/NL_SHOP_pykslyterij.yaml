@@ -1,9 +1,9 @@
 scraper_type: 'shopify'
-name: 'The Scottish Gantry'
-base_url: 'https://thescottishgantry.com/'
-retailer_country: 'GB'
+name: 'Pyk Slyterij'
+base_url: 'https://pykslyterij.nl'
+retailer_country: 'NL'
 currency: 'EUR'
-request_url: 'https://thescottishgantry.com/collections/whisky/products.json'
+request_url: 'https://pykslyterij.nl/collections/whisky/products.json'
 request_method: 'GET'
 request_payload:
   limit: 250
@@ -15,7 +15,7 @@ response_mapping:
     name: 'title'
     price: 'variants[0].price'
     original_price: 'variants[0].compare_at_price || `null`'
-    link: "join('', ['https://thescottishgantry.com/collections/whisky/products/', handle])"
+    link: "join('', ['https://pykslyterij.nl/collections/whisky/products/', handle])"
     category: 'product_type'
     subcategory: 'tags[0] || `null`'
     brand: 'vendor'
