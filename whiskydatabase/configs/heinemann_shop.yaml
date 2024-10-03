@@ -59,4 +59,4 @@ detail_fields:
     parser: 'str'
 delay: 2
 retries: 3
-enabled: True
+enabled: false

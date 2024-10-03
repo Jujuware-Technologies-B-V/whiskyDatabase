@@ -3,9 +3,8 @@
 import asyncio
 import os
 import yaml
-from utils.helpers import ensure_directory
 from dotenv import load_dotenv
-from scrapers.base_scraper import BaseScraper
+from scrapers.beverage_scraper import BeverageScraper
 from scrapers.scraper_factory import ScraperFactory
 
 load_dotenv()
@@ -25,7 +24,7 @@ def load_all_configs(config_dir: str):
     return configs
 
 
-async def bound_scrape(scraper: BaseScraper, semaphore: asyncio.Semaphore):
+async def bound_scrape(scraper: BeverageScraper, semaphore: asyncio.Semaphore):
     async with semaphore:
         await scraper.scrape()
 
@@ -43,7 +42,7 @@ async def main():
                 site_config['dev_mode'] = True
                 site_config['page_limit'] = dev_page_limit
 
-            scraper = ScraperFactory.create_scraper(site_config)
+            scraper = ScraperFactory.create_beverage_scraper(site_config)
             scraper_tasks.append(bound_scrape(scraper, semaphore))
 
     # Run all scrapers with concurrency limits

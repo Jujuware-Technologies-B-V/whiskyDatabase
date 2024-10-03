@@ -62,4 +62,4 @@ detail_fields:
     pattern: '/([^/]+)\.html$' # Extracts the segment after '/'
 delay: 2
 retries: 3
-enabled: true
+enabled: false

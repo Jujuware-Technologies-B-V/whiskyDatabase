@@ -1,29 +1,27 @@
 # scrapers/base_scraper.py
 
 from typing import Dict, Optional, List, Any
-from abc import ABC, abstractmethod
-from utils.helpers import ensure_directory
+from abc import ABC
+from utils.helpers import ensure_directory, apply_parser
 from utils.headers import HeaderGenerator
-from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError
+from utils.logger import setup_logger
+from playwright.async_api import async_playwright, TimeoutError as PlaywrightTimeoutError, Page, BrowserContext
 import asyncio
 import random
 import csv
 import gzip
 import os
 from bs4 import BeautifulSoup, Tag
-import time
 import uuid
 from datetime import datetime
 from dataclasses import dataclass, field
 from typing import ClassVar
 import logging
-from logging.handlers import RotatingFileHandler
 import re
-from urllib.parse import urljoin, urlparse
 
 
 @dataclass
-class BaseScraper(ABC):
+class BeverageScraper(ABC):
     site_config: Dict[str, Any]
     logger: logging.Logger = field(init=False)
     semaphore: asyncio.Semaphore = field(init=False)
@@ -42,7 +40,7 @@ class BaseScraper(ABC):
         self.retailer = self.site_config['name']
         self.retailer_country = self.site_config['retailer_country']
         self.currency = self.site_config['currency']
-        self.logger = self._setup_logger()  # Changed from __setup_logger to _setup_logger
+        self.logger = setup_logger(self.retailer)  # Use the new function
         self.headers = self.site_config.get('headers', {})
         self.base_url = self.site_config['base_url']
         self.delay = self.site_config.get('delay', 1)
@@ -52,6 +50,7 @@ class BaseScraper(ABC):
         self.data_file = self._get_data_filename()
         self._init_data_file()
         self.semaphore = asyncio.Semaphore(5)
+        self.max_timeout = self.site_config.get('max_timeout', 60000)
 
     # Public methods
     async def scrape(self) -> None:
@@ -146,8 +145,6 @@ class BaseScraper(ABC):
                 # Default parser is string
                 parser = config.get('parser', 'str')
                 pattern = config.get('pattern', None)  # Optional regex pattern
-                # Optional absolute flag
-                absolute = config.get('absolute', False)
                 # Optional attribute to extract
                 attribute = config.get('attribute', None)
 
@@ -158,8 +155,8 @@ class BaseScraper(ABC):
                     else:
                         raw_value = element.get_text(strip=True) if isinstance(
                             element, Tag) else element
-                    parsed_value = self.apply_parser(
-                        raw_value, parser, field, pattern)
+                    parsed_value = apply_parser(
+                        raw_value, parser, field, pattern, self.base_url)
                     product[field] = parsed_value
                 else:
                     self.logger.warning(f"Selector '{selector}' not found for field '{
@@ -175,45 +172,6 @@ class BaseScraper(ABC):
 
         except Exception as e:
             self.logger.error(f"Error parsing product: {e}")
-            return None
-
-    def apply_parser(self, value: str, parser: str, field: str, pattern: Optional[str] = None) -> Any:
-        try:
-            if parser == 'float':
-                # Remove any non-numeric characters except '.' and ','
-                value_clean = re.sub(r'[^\d.,]', '', value)
-                # Replace comma with dot if comma is used as decimal separator
-                if ',' in value_clean and '.' not in value_clean:
-                    value_clean = value_clean.replace(',', '.')
-                # Remove thousands separators
-                value_clean = value_clean.replace(',', '')
-                return float(value_clean)
-            elif parser == 'int':
-                value_clean = re.sub(r'[^\d]', '', value)
-                return int(value_clean)
-            elif parser == 'bool':
-                return 'available' in value.lower() or 'in stock' in value.lower()
-            elif parser == 'url':
-                # Use urljoin to handle relative and absolute URLs
-                return urljoin(self.base_url, value)
-            elif parser == 'regex':
-                if pattern:
-                    match = re.search(pattern, value)
-                    if match:
-                        return match.group(1)
-                    else:
-                        self.logger.warning(f"Regex pattern '{pattern}' did not match for field '{
-                                            field}' with value: {value}")
-                        return None
-                else:
-                    self.logger.warning(
-                        f"No regex pattern provided for field '{field}'")
-                    return None
-            else:
-                return value  # Default to string
-        except ValueError:
-            self.logger.warning(f"Failed to parse field '{
-                                field}' with value: {value}")
             return None
 
     def _extract_product_id(self, url: str) -> Optional[str]:
@@ -236,7 +194,7 @@ class BaseScraper(ABC):
             # Fallback: return the entire URL or some default
             return url
 
-    def _has_next_page(self, soup: BeautifulSoup, current_page_num: int) -> bool:
+    def _has_next_page(self, soup: BeautifulSoup, page_num: int) -> bool:
         next_page_selector = self.site_config.get('next_page_selector')
         if not next_page_selector:
             return False
@@ -307,8 +265,8 @@ class BaseScraper(ABC):
             if element:
                 raw_value = element.get_text(strip=True) if isinstance(
                     element, Tag) else element
-                parsed_value = self.apply_parser(
-                    raw_value, parser, field, pattern)
+                parsed_value = apply_parser(
+                    raw_value, parser, field, pattern, self.base_url)
                 details[field] = parsed_value
             else:
                 details[field] = None
@@ -317,13 +275,13 @@ class BaseScraper(ABC):
         return details
 
     # Request handling
-    async def _make_request(self, url: str, context, is_detail_page: bool = False) -> Optional[str]:
+    async def _make_request(self, url: str, context: BrowserContext, is_detail_page: bool = False) -> Optional[str]:
         for attempt in range(1, self.retries + 1):
             try:
                 self.logger.debug(f"Attempting to fetch URL: {
                                   url} (Attempt {attempt}/{self.retries})")
                 page = await context.new_page()
-                await page.goto(url, wait_until="networkidle", timeout=60000)
+                await page.goto(url, wait_until="networkidle", timeout=self.max_timeout)
                 self.logger.info(f"Navigated to: {page.url}")
 
                 await self._wait_for_content(page, is_detail_page)
@@ -348,39 +306,10 @@ class BaseScraper(ABC):
                 await asyncio.sleep(backoff_time)
         return None
 
-    async def _wait_for_content(self, page, is_detail_page: bool):
+    async def _wait_for_content(self, page: Page, is_detail_page: bool):
         if not is_detail_page:
-            await page.wait_for_selector(self.site_config['product_list_selector'], timeout=60000)
+            await page.wait_for_selector(self.site_config['product_list_selector'], timeout=self.max_timeout)
         else:
             detail_selector = self.site_config.get('detail_info_selector')
             if detail_selector:
-                await page.wait_for_selector(detail_selector, timeout=60000)
-
-    # Logging setup
-    def _setup_logger(self) -> logging.Logger:
-        logger = logging.getLogger(self.retailer)
-        logger.setLevel(logging.DEBUG)
-
-        # Console handler
-        console_handler = logging.StreamHandler()
-        console_handler.setLevel(logging.INFO)
-        console_format = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        console_handler.setFormatter(console_format)
-
-        # File handler
-        log_file = f"logs/{self.retailer.lower()}_scraper.log"
-        ensure_directory(os.path.dirname(log_file))
-        file_handler = RotatingFileHandler(
-            log_file, maxBytes=10*1024*1024, backupCount=5)
-        file_handler.setLevel(logging.DEBUG)
-        file_format = logging.Formatter(
-            '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-        file_handler.setFormatter(file_format)
-
-        # Prevent adding multiple handlers to the logger if it already has handlers
-        if not logger.handlers:
-            logger.addHandler(console_handler)
-            logger.addHandler(file_handler)
-
-        return logger
+                await page.wait_for_selector(detail_selector, timeout=self.max_timeout)
