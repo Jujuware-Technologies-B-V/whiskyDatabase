@@ -6,13 +6,13 @@ from typing import Dict, Any
 from scrapers.web_scraper import WebScraper
 from scrapers.network_scraper import NetworkScraper
 from scrapers.base_scraper import BaseScraper
+from scrapers.shopify_scraper import ShopifyScraper
 
 load_dotenv()
 
 CONFIG_DIR = 'configs'
-SECTORS_DIR = os.path.join(CONFIG_DIR, 'sectors')
 SITES_DIR = os.path.join(CONFIG_DIR, 'sites')
-MAX_CONCURRENT_SCRAPERS = int(os.getenv('MAX_CONCURRENT_SCRAPERS', 50))
+MAX_CONCURRENT_SCRAPERS = int(os.getenv('MAX_CONCURRENT_SCRAPERS', 5))
 
 
 def load_yaml(file_path: str) -> Dict[str, Any]:
@@ -20,29 +20,34 @@ def load_yaml(file_path: str) -> Dict[str, Any]:
         return yaml.safe_load(f)
 
 
-def load_sector_config(sector: str) -> Dict[str, Any]:
-    sector_file = os.path.join(SECTORS_DIR, f"{sector}.yaml")
-    return load_yaml(sector_file)
+def load_fields_config(category: str) -> Dict[str, Any]:
+    fields_file = os.path.join(SITES_DIR, category, "fields.yaml")
+    if os.path.exists(fields_file):
+        return load_yaml(fields_file)
+    return {}
 
 
-def load_and_merge_config(site_file: str) -> Dict[str, Any]:
+def load_and_merge_config(category: str, site_file: str) -> Dict[str, Any]:
     site_config = load_yaml(site_file)
-    # Default to 'beverages' if not specified
-    sector = site_config.get('sector', 'beverages')
-    sector_config = load_sector_config(sector)
+    fields_config = load_fields_config(category)
 
-    # Merge configurations, with site_config overriding sector_config
-    merged_config = {**sector_config, **site_config}
+    # Merge configurations, with site_config overriding fields_config
+    merged_config = {**fields_config, **site_config}
+    merged_config['category'] = category  # Add category to the config
     return merged_config
 
 
 def load_all_configs() -> Dict[str, Dict[str, Any]]:
     configs = {}
-    for filename in os.listdir(SITES_DIR):
-        if filename.endswith('.yaml') or filename.endswith('.yml'):
-            site_name = filename.rsplit('.', 1)[0]
-            file_path = os.path.join(SITES_DIR, filename)
-            configs[site_name] = load_and_merge_config(file_path)
+    for category in os.listdir(SITES_DIR):
+        category_path = os.path.join(SITES_DIR, category)
+        if os.path.isdir(category_path):
+            for filename in os.listdir(category_path):
+                if filename.endswith(('.yaml', '.yml')) and filename != 'fields.yaml':
+                    site_name = f"{category}_{filename.rsplit('.', 1)[0]}"
+                    file_path = os.path.join(category_path, filename)
+                    configs[site_name] = load_and_merge_config(
+                        category, file_path)
     return configs
 
 
@@ -52,12 +57,14 @@ async def bound_scrape(scraper: BaseScraper, semaphore: asyncio.Semaphore):
 
 
 def create_scraper(site_config: Dict[str, Any]) -> BaseScraper:
-    scraper_type = site_config.get('scraper_type', 'web')
+    scraper_type = site_config.get('scraper_type', 'web').lower()
 
     if scraper_type == 'web':
         return WebScraper(site_config)
     elif scraper_type == 'network':
         return NetworkScraper(site_config)
+    elif scraper_type == 'shopify':
+        return ShopifyScraper(site_config)
 
     raise ValueError(f"Unknown scraper type: {scraper_type}")
 

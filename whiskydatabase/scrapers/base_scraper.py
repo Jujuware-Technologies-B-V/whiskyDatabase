@@ -1,3 +1,5 @@
+# scrapers/base_scraper.py
+
 from dataclasses import dataclass, field
 import logging
 import asyncio
@@ -22,6 +24,9 @@ class BaseScraper(ABC):
     data_file: str = field(init=False)
     header_generator: HeaderGenerator = field(init=False)
     fieldnames: List[str] = field(init=False)
+    page_limit: int = field(init=False)
+    dev_mode: bool = field(init=False)
+    pagination: Dict[str, Any] = field(init=False)
 
     def __post_init__(self):
         self.header_generator = HeaderGenerator()
@@ -40,6 +45,10 @@ class BaseScraper(ABC):
         self.max_timeout = self.site_config.get('max_timeout', 60000)
         self.fieldnames = self.site_config.get('fieldnames', [])
         self._init_data_file()
+
+        # Initialize dev_mode and page_limit
+        self.dev_mode = self.site_config.get('dev_mode', False)
+        self.page_limit = self.site_config.get('page_limit', float('inf'))
 
     @abstractmethod
     async def scrape(self) -> None:

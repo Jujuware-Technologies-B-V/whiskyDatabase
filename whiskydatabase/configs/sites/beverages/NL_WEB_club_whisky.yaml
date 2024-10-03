@@ -1,0 +1,65 @@
+# configs/club_whisky.yaml
+
+name: 'Club Whisky'
+base_url: 'https://www.club-whisky.nl'
+retailer_country: 'NL'
+currency: 'EUR'
+pagination_url: 'https://www.club-whisky.nl/soorten/page{}.html' # Updated based on previous feedback
+product_list_selector: '.products-holder'
+product_item_selector: '.product'
+fields:
+  name:
+    selector: '.info .title'
+    parser: 'str'
+  price:
+    selector: '.info .price .current_price'
+    parser: 'float'
+  original_price:
+    selector: '.info .price .old_price'
+    parser: 'float'
+  link:
+    selector: '.image-wrap a'
+    parser: 'url'
+    attribute: 'href' # Extract the 'href' attribute
+  image_url:
+    selector: '.image-wrap img'
+    parser: 'url'
+    attribute: 'src' # Extract the 'src' attribute
+detail_fields:
+  description:
+    selector: '.product-fullcontent'
+    parser: 'str'
+  volume:
+    selector: '.specifications .spec-line:contains("Inhoud") .spec-title:last-child'
+    parser: 'str'
+  abv:
+    selector: '.specifications .spec-line:contains("Alcohol") .spec-title:last-child'
+    parser: 'float'
+  category:
+    selector: '.specifications .spec-line:contains("Type") .spec-title:last-child'
+    parser: 'str'
+  brand:
+    selector: '.specifications .spec-line:contains("Merk") .spec-title:last-child'
+    parser: 'str'
+  country:
+    selector: '.specifications .spec-line:contains("Land") .spec-title:last-child'
+    parser: 'str'
+  region:
+    selector: '.specifications .spec-line:contains("Regio") .spec-title:last-child'
+    parser: 'str'
+  rating:
+    selector: '.stars-holder .stars'
+    parser: 'float'
+  num_reviews:
+    selector: '.review-count'
+    parser: 'int'
+  in_stock:
+    selector: '.spec-line:last-child .spec-title:last-child'
+    parser: 'bool'
+  product_id:
+    selector: '.image-wrap a[href]'
+    parser: 'regex'
+    pattern: '/([^/]+)\.html$' # Extracts the segment after '/'
+delay: 2
+retries: 3
+enabled: false

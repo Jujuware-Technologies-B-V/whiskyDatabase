@@ -1,0 +1,23 @@
+fieldnames:
+  - retailer
+  - retailer_country
+  - name
+  - price
+  - original_price
+  - currency
+  - link
+  - volume
+  - abv
+  - category
+  - subcategory
+  - brand
+  - country
+  - region
+  - description
+  - rating
+  - num_reviews
+  - in_stock
+  - image_url
+  - product_id
+  - series
+  - scraped_at

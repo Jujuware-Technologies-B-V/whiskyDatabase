@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Dict, Any, List, Union
+from typing import Dict, Any, List
 from scrapers.base_scraper import BaseScraper
 from playwright.async_api import async_playwright
 import json
@@ -16,7 +16,6 @@ class NetworkScraper(BaseScraper):
         self.request_payload = self.site_config.get('request_payload', {})
         self.response_mapping = self.site_config['response_mapping']
         self.dev_mode = self.site_config.get('dev_mode', False)
-        self.page_limit = self.site_config.get('page_limit', float('inf'))
 
     async def scrape(self) -> None:
         self.logger.info(
@@ -34,9 +33,8 @@ class NetworkScraper(BaseScraper):
 
             try:
                 while page <= self.page_limit:
-                    self.request_payload['page'] = page
-                    full_url = f"{self.request_url}?{
-                        '&'.join([f'{k}={v}' for k, v in self.request_payload.items()])}"
+                    self._update_payload(page)
+                    full_url = self._construct_url()
                     self.logger.debug(f"Requesting URL for page {
                                       page}: {full_url}")
 
@@ -80,6 +78,19 @@ class NetworkScraper(BaseScraper):
 
         self.logger.info(f"Network request scrape completed for {
                          self.retailer}. Total products scraped: {total_products}")
+
+    def _update_payload(self, page: int):
+        if 'page' in self.request_payload:
+            self.request_payload['page'] = page
+        elif self.pagination.get('page_param'):
+            self.request_payload[self.pagination['page_param']] = page
+
+    def _construct_url(self) -> str:
+        if self.request_method == 'GET':
+            query_string = '&'.join(
+                [f'{k}={v}' for k, v in self.request_payload.items()])
+            return f"{self.request_url}?{query_string}" if query_string else self.request_url
+        return self.request_url
 
     def parse_response(self, json_response: Dict[str, Any]) -> List[Dict[str, Any]]:
         products = []

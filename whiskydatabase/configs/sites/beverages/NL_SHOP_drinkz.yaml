@@ -1,0 +1,41 @@
+scraper_type: 'shopify'
+sector: 'beverages'
+name: 'Drinkz'
+base_url: 'https://drinkz.nl'
+retailer_country: 'NL'
+currency: 'EUR'
+request_url: 'https://drinkz.nl/collections/whisky/products.json'
+request_method: 'GET'
+request_payload:
+  limit: 25
+  page: 1
+
+response_mapping:
+  root: 'products'
+  fields:
+    name: 'title'
+    price: 'variants[0].price'
+    original_price: 'variants[0].compare_at_price || `null`'
+    link: "join('', ['https://drinkz.nl/collections/whisky/products/', handle])"
+    volume: 'title'
+    abv: 'title'
+    category: 'product_type'
+    subcategory: "tags[?contains(@, 'Soort_')] | [0] || `null`"
+    brand: 'vendor'
+    country: "tags[?contains(@, 'Land_')] | [0] || `null`"
+    region: '`null`'
+    description: 'body_html'
+    rating: '`null`'
+    num_reviews: '`null`'
+    in_stock: 'variants[0].available'
+    image_url: 'images[0].src'
+    product_id: 'variants[0].sku || id'
+    series: '`null`'
+
+pagination:
+  type: 'page'
+  page_param: 'page'
+
+delay: 2
+retries: 3
+enabled: false

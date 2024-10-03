@@ -1,0 +1,34 @@
+scraper_type: 'shopify'
+name: 'Cane and Grain'
+base_url: 'https://www.caneandgrain.nl'
+retailer_country: 'NL'
+currency: 'EUR'
+request_url: 'https://www.caneandgrain.nl/collections/whiskey/products.json'
+request_method: 'GET'
+request_payload:
+  limit: 250
+  page: 1
+
+response_mapping:
+  root: 'products'
+  fields:
+    name: 'title'
+    price: 'variants[0].price'
+    original_price: 'variants[0].compare_at_price || `null`'
+    link: "join('', ['https://www.caneandgrain.nl/collections/whiskey/products/', handle])"
+    category: 'product_type'
+    subcategory: 'tags[0] || `null`'
+    brand: 'vendor'
+    description: 'body_html'
+    in_stock: 'variants[0].available'
+    image_url: 'images[0].src'
+    product_id: 'id'
+    product_id: 'variants[0].sku'
+
+pagination:
+  type: 'page'
+  page_param: 'page'
+
+delay: 2
+retries: 3
+enabled: false

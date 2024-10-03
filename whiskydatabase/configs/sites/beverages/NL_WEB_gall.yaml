@@ -1,0 +1,62 @@
+# configs/gall_gall.yaml
+
+name: 'Gall & Gall'
+base_url: 'https://www.gall.nl'
+retailer_country: 'NL'
+currency: 'EUR'
+pagination_url: 'https://www.gall.nl/whisky/?start={}&sz=12'
+product_list_selector: '.product-grid__wrapper'
+product_item_selector: '.product-grid__product'
+fields:
+  name:
+    selector: '.ptile_link strong[itemprop="name"]'
+    parser: 'str'
+  price:
+    selector: '.price-value'
+    parser: 'float'
+  original_price:
+    selector: '.price-value.old-price' # Adjusted selector
+    parser: 'float'
+  link:
+    selector: '.ptile_link'
+    parser: 'url'
+    attribute: 'href' # Extract the 'href' attribute
+  image_url:
+    selector: 'img.product-image'
+    parser: 'url'
+    attribute: 'src' # Extract the 'src' attribute
+detail_fields:
+  description:
+    selector: '.pdp-info_desc'
+    parser: 'str'
+  volume:
+    selector: '.specs tr:-soup-contains("Volume") td'
+    parser: 'str'
+  abv:
+    selector: '.specs tr:-soup-contains("Alcoholpercentage") td'
+    parser: 'float'
+  category:
+    selector: '.specs tr:-soup-contains("Categorie") td'
+    parser: 'str'
+  brand:
+    selector: '.specs tr:-soup-contains("Merk") td'
+    parser: 'str'
+  country:
+    selector: '.specs tr:-soup-contains("Land") td'
+    parser: 'str'
+  rating:
+    selector: '.rating_score'
+    parser: 'float'
+  num_reviews:
+    selector: '.review-count'
+    parser: 'int'
+  in_stock:
+    selector: '.stock.available'
+    parser: 'bool'
+  product_id:
+    selector: '.ptile_link[href]'
+    parser: 'regex'
+    pattern: '/whisky/(.+)$' # Adjust this pattern based on actual URL structure
+delay: 2
+retries: 3
+enabled: false
