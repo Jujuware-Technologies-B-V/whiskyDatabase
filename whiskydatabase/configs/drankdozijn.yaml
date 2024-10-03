@@ -1,5 +1,4 @@
-# configs/drankdozijn.yaml
-
+scraper_type: 'beverage'
 name: 'DrankDozijn'
 base_url: 'https://www.drankdozijn.nl'
 retailer_country: 'NL'
@@ -11,58 +10,78 @@ fields:
   name:
     selector: '.product_info h3.card-title.lvl3'
     parser: 'str'
+    required: true
   price:
     selector: '.price_info .current_price span[content]:last-child'
     parser: 'float'
+    required: true
   original_price:
     selector: '.price_info .old_price'
     parser: 'float'
+    required: false
   link:
     selector: '.product_info a[href^="/artikel/"]'
     parser: 'url'
-    attribute: 'href' # Extract the 'href' attribute
+    attribute: 'href'
+    required: true
   image_url:
     selector: 'img.product_image_primary'
     parser: 'url'
-    attribute: 'src' # Extract the 'src' attribute
+    attribute: 'src'
+    required: false
 detail_fields:
   description:
-    selector: '.description'
+    selector: '.description p'
     parser: 'str'
+    required: false
   volume:
-    selector: '.specs tr:-soup-contains("Inhoud") td'
+    selector: '.specs tr:contains("Inhoud") td:last-child'
     parser: 'str'
+    required: false
   abv:
-    selector: '.specs tr:-soup-contains("Alcoholpercentage") td'
+    selector: '.specs tr:contains("Alcoholpercentage") td:last-child'
     parser: 'float'
+    required: false
   category:
-    selector: '.specs tr:-soup-contains("Categorie") td'
+    selector: '.specs tr:contains("Categorie") td:last-child'
     parser: 'str'
+    required: false
   brand:
-    selector: '.specs tr:-soup-contains("Merk") td'
+    selector: '.specs tr:contains("Merk") td:last-child'
     parser: 'str'
+    required: false
   country:
-    selector: '.specs tr:-soup-contains("Land") td'
+    selector: '.specs tr:contains("Land") td:last-child'
     parser: 'str'
+    required: false
   subcategory:
-    selector: '.specs tr:-soup-contains("Smaakprofiel") td'
+    selector: '.specs tr:contains("Smaakprofiel") td:last-child'
     parser: 'str'
+    required: false
   series:
-    selector: '.specs tr:-soup-contains("Serie") td'
+    selector: '.specs tr:contains("Serie") td:last-child'
     parser: 'str'
+    required: false
   rating:
     selector: '.rating_score'
     parser: 'float'
+    required: false
   num_reviews:
     selector: '.review-count'
     parser: 'int'
+    pattern: '\((\d+) Reviews\)'
+    required: false
   in_stock:
     selector: '.txt-icon-pair .inline'
     parser: 'bool'
+    pattern: 'Direct leverbaar'
+    required: false
   product_id:
     selector: '.product_info a[href^="/artikel/"]'
     parser: 'regex'
-    pattern: '/artikel/(.+)$' # Extracts the segment after '/artikel/'
+    pattern: '/artikel/fles-(.+)$'
+    attribute: 'href'
+    required: true
 delay: 2
 retries: 3
 enabled: true

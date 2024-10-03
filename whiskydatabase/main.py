@@ -1,17 +1,16 @@
-# main.py (Updated)
+# main.py
 
 import asyncio
 import os
 import yaml
 from dotenv import load_dotenv
 from scrapers.beverage_scraper import BeverageScraper
-from scrapers.scraper_factory import ScraperFactory
+from scrapers.base_scraper import BaseScraper
 
 load_dotenv()
 
 CONFIG_DIR = 'configs'
-MAX_CONCURRENT_SCRAPERS = int(
-    os.getenv('MAX_CONCURRENT_SCRAPERS', 50))  # Adjust as needed
+MAX_CONCURRENT_SCRAPERS = int(os.getenv('MAX_CONCURRENT_SCRAPERS', 50))
 
 
 def load_all_configs(config_dir: str):
@@ -24,9 +23,17 @@ def load_all_configs(config_dir: str):
     return configs
 
 
-async def bound_scrape(scraper: BeverageScraper, semaphore: asyncio.Semaphore):
+async def bound_scrape(scraper: BaseScraper, semaphore: asyncio.Semaphore):
     async with semaphore:
         await scraper.scrape()
+
+
+def create_scraper(site_config: dict) -> BaseScraper:
+    scraper_type = site_config.get('scraper_type', 'beverage')
+    if scraper_type == 'beverage':
+        return BeverageScraper(site_config)
+    else:
+        raise ValueError(f"Unknown scraper type: {scraper_type}")
 
 
 async def main():
@@ -42,8 +49,11 @@ async def main():
                 site_config['dev_mode'] = True
                 site_config['page_limit'] = dev_page_limit
 
-            scraper = ScraperFactory.create_beverage_scraper(site_config)
-            scraper_tasks.append(bound_scrape(scraper, semaphore))
+            try:
+                scraper = create_scraper(site_config)
+                scraper_tasks.append(bound_scrape(scraper, semaphore))
+            except ValueError as e:
+                print(f"Error creating scraper for {site_name}: {str(e)}")
 
     # Run all scrapers with concurrency limits
     await asyncio.gather(*scraper_tasks)

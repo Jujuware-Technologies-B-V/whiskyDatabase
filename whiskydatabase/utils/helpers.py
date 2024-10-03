@@ -65,9 +65,12 @@ async def fetch_exchange_rate_GBP_EUR(logger: logging.Logger) -> float:
     return exchange_rate
 
 
-def apply_parser(value: str, parser: str, field: str, pattern: Optional[str] = None, base_url: str = None) -> Any:
+def apply_parser(value: str, parser: str, field: str, pattern: Optional[str] = None, base_url: Optional[str] = None) -> Any:
     logger = logging.getLogger(__name__)
     try:
+        if not value:
+            return None
+
         if parser == 'float':
             # Remove any non-numeric characters except '.' and ','
             value_clean = re.sub(r'[^\d.,]', '', value)
@@ -78,9 +81,15 @@ def apply_parser(value: str, parser: str, field: str, pattern: Optional[str] = N
             value_clean = value_clean.replace(',', '')
             return float(value_clean)
         elif parser == 'int':
+            if pattern:
+                match = re.search(pattern, value)
+                if match:
+                    return int(match.group(1))
             value_clean = re.sub(r'[^\d]', '', value)
             return int(value_clean)
         elif parser == 'bool':
+            if pattern:
+                return bool(re.search(pattern, value, re.IGNORECASE))
             return 'available' in value.lower() or 'in stock' in value.lower()
         elif parser == 'url':
             # Use urljoin to handle relative and absolute URLs
@@ -92,15 +101,21 @@ def apply_parser(value: str, parser: str, field: str, pattern: Optional[str] = N
                     return match.group(1)
                 else:
                     logger.warning(f"Regex pattern '{pattern}' did not match for field '{
-                        field}' with value: {value}")
+                                   field}' with value: {value}")
                     return None
             else:
                 logger.warning(
                     f"No regex pattern provided for field '{field}'")
                 return None
+        elif parser == 'str':
+            if pattern:
+                match = re.search(pattern, value)
+                if match:
+                    return match.group(1).strip()
+            return value.strip()
         else:
-            return value  # Default to string
-    except ValueError:
+            return value.strip()  # Default to string
+    except Exception as e:
         logger.warning(f"Failed to parse field '{
-            field}' with value: {value}")
+                       field}' with value: {value}. Error: {str(e)}")
         return None
